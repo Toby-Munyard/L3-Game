@@ -15,6 +15,14 @@ class Player{
     }
 
     move(){
-        this.x += this.xSpeed;
+        if(leftKeyPressed && this.x > 0){
+            thix.x -= this.xSpeed;
+        }
+        if(rightKeyPressed){
+            this.x += this.xSpeed;
+            if(this.x > canvas.width){
+                this.x = 0 - this.w / 2;
+            }
+        }
     }
 }
