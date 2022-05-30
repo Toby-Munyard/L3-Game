@@ -1,5 +1,5 @@
 class Player{
-    constructor(x,y,x,h,c,xSpeed,ySpeed){
+    constructor(x,y,h,w,c,xSpeed,ySpeed){
         this.x = x;
         this.y = y;
         this.w = w;
@@ -10,7 +10,11 @@ class Player{
     }
 
     draw(){
-        canvasContext.fillStyle = c;
+        canvasContext.fillStyle = this.c;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
+    }
+
+    move(){
+        this.x += this.xSpeed;
     }
 }

@@ -24,9 +24,15 @@
         var pYSpeed = 5;
         const P_SIZE = 20;
 
+        var player = new
+        Player(pXpos,pYpos,P_SIZE,P_SIZE,'green',pXSpeed,pYSpeed);
+
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); //background 
-            colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
+            // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
+
+            player.draw();
+            player.move();
         }
           function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
