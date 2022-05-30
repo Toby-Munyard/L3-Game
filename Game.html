@@ -2,6 +2,7 @@
 
 <head>
     <title>Placeholder</title>
+    <script src="player.js"></script>
 </head>
 
 <body>
@@ -24,8 +25,8 @@
         const P_SIZE = 20;
 
         function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height,'black');
-            colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white');
+            colorRect(0,0,canvas.width,canvas.height,'black'); //background 
+            colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
         }
           function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
