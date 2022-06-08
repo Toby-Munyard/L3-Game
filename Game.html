@@ -1,7 +1,7 @@
 <!doctype html>
 
 <head>
-    <title>Placeholder</title>
+    <title>Star Jumper</title>
     <script src="player.js"></script>
 </head>
 
@@ -15,8 +15,8 @@
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
-            document.addEventListener('keydown',keyPressed);
-            document.addEventListener('keyup',keyReleased);
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
 
             setInterval(mainloop, 1000 / 50);
         }
@@ -27,58 +27,78 @@
         var pYSpeed = 5;
         const P_SIZE = 20;
 
+        var eXpos = 0;
+        var eYpos = 0;
+        var eXSpeed = 5;
+        var eYSpeed = 5;
+        const E_SIZE = 20
+
         var leftKeyPressed = false;
         var upKeyPressed = false;
         var rightKeyPressed = false;
         var downKeyPressed = false;
+        var spaceKeyPressed = false;
 
         const LEFT_KEY = 37;
         const UP_KEY = 38;
         const RIGHT_KEY = 39;
         const DOWN_KEY = 40;
+        const SPACE_KEY = 32;
 
         var player = new
-        Player(pXpos,pYpos,P_SIZE,P_SIZE,'green',pXSpeed,pYSpeed);
+        Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
 
         function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height,'black'); //background 
+            colorRect(0, 0, canvas.width, canvas.height, 'black'); //background 
+            colorRect(0, 720, canvas.width, 80, 'red'); //ground
+            colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
             player.draw();
             player.move();
+            EnemyMove();
         }
 
-        function keyPressed(evt){
-            if(evt.keyCode == LEFT_KEY){
+        function EnemyMove() {
+            eXpos += eXSpeed;
+        }
+        function keyPressed(evt) {
+            if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = true;
             }
-            if(evt.keyCode == UP_KEY){
+            if (evt.keyCode == UP_KEY) {
                 upKeyPressed = true;
             }
-            if(evt.keyCode == RIGHT_KEY){
+            if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = true;
             }
-            if(evt.keyCode == DOWN_KEY){
+            if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = true;
+            }
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPressed = true;
             }
         }
 
-        function keyReleased(evt){
-            if(evt.keyCode == LEFT_KEY){
+        function keyReleased(evt) {
+            if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = false;
             }
-            if(evt.keyCode == UP_KEY){
+            if (evt.keyCode == UP_KEY) {
                 upKeyPressed = false;
             }
-            if(evt.keyCode == RIGHT_KEY){
+            if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = false;
             }
-            if(evt.keyCode == DOWN_KEY){
+            if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = false;
             }
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPressed = false;
+            }
         }
-        
-          function colorRect(x, y, w, h, c) {
+
+        function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         } //end func defines the basic outline of the screen

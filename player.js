@@ -1,5 +1,5 @@
-class Player{
-    constructor(x,y,h,w,c,xSpeed,ySpeed){
+class Player {
+    constructor(x, y, h, w, c, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -9,32 +9,40 @@ class Player{
         this.ySpeed = ySpeed;
     }
 
-    draw(){
+    draw() {
         canvasContext.fillStyle = this.c;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     }
 
-    move(){
-        if(leftKeyPressed && this.x > 0){
+    collide() {
+        if (this.y > 0) {
+            this.y -= this.ySpeed;
+        }
+    }
+
+    move() {
+        if (leftKeyPressed && this.x > 0) {
             this.x -= this.xSpeed;
         }
-        if(rightKeyPressed){
+        if (rightKeyPressed) {
             this.x += this.xSpeed;
-            if(this.x > canvas.width){
+            if (this.x > canvas.width) {
                 this.x = 0 - this.w / 2;
             }
         }
-            if(upKeyPressed){
-                this.y -= this.ySpeed;
-                if(this.y < 0 || this.y > canvas.height){
-                    this.yspeed = this.yspeed * -1;
-                }
+        if (upKeyPressed) {
+            this.y -= this.ySpeed;
+            if (this.y < 0 || this.y > canvas.height) {
+                this.yspeed = this.yspeed * -1;
+            } else if (this.y < canvas.height || this.y > canvas.height) {
+                this.yspeed = this.yspeed;
             }
-            if(downKeyPressed){
-                this.y += this.ySpeed;
-                if(this.y < 0 || this.y > canvas.height){
-                    this.yspeed = this.yspeed;
-                }
+        }
+        if (downKeyPressed) {
+            this.y += this.ySpeed;
+            if (this.y < 0 || this.y > canvas.height) {
+                this.yspeed = this.yspeed;
             }
         }
     }
+}
