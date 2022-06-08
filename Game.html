@@ -60,7 +60,13 @@
         }
 
         function EnemyMove() {
-            eXpos += eXSpeed;
+            eYpos += eYSpeed;
+
+            if(eYpos > canvas.height){
+                eYpos = 0 - E_SIZE;
+                eXpos = Math.floor(Math.random()*(canvas.width - E_SIZE));
+                eYSpeed = Math.floor(Math.random()*(12 - 4) + 4);
+            }
         }
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {
