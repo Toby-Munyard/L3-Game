@@ -16,7 +16,7 @@ class Player{
 
     move(){
         if(leftKeyPressed && this.x > 0){
-            thix.x -= this.xSpeed;
+            this.x -= this.xSpeed;
         }
         if(rightKeyPressed){
             this.x += this.xSpeed;
@@ -24,5 +24,17 @@ class Player{
                 this.x = 0 - this.w / 2;
             }
         }
+            if(upKeyPressed){
+                this.y -= this.ySpeed;
+                if(this.y < 0 || this.y > canvas.height){
+                    this.yspeed = this.yspeed * -1;
+                }
+            }
+            if(downKeyPressed){
+                this.y += this.ySpeed;
+                if(this.y < 0 || this.y > canvas.height){
+                    this.yspeed = this.yspeed;
+                }
+            }
+        }
     }
-}
