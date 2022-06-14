@@ -3,6 +3,7 @@
 <head>
     <title>Star Jumper</title>
     <script src="player.js"></script>
+    <script src="enemy.js"></script>
 </head>
 
 <body>
@@ -47,27 +48,31 @@
 
         var player = new
         Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
+        var enemy = new
+        Enemy(eXpos, eYpos, E_SIZE, E_SIZE, 'white', eXSpeed, eYSpeed);
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); //background 
             colorRect(0, 720, canvas.width, 80, 'red'); //ground
-            colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
+            // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
             player.draw();
             player.move();
-            EnemyMove();
+            player.collide();
+            enemy.draw();
+            enemy.EnemyMove();
         }
 
-        function EnemyMove() {
-            eYpos += eYSpeed;
+        // function EnemyMove() {
+        //     eYpos += eYSpeed;
 
-            if(eYpos > canvas.height){
-                eYpos = 0 - E_SIZE;
-                eXpos = Math.floor(Math.random()*(canvas.width - E_SIZE));
-                eYSpeed = Math.floor(Math.random()*(12 - 4) + 4);
-            }
-        }
+        //     if(eYpos > canvas.height){
+        //         eYpos = 0 - E_SIZE;
+        //         eXpos = Math.floor(Math.random()*(canvas.width - E_SIZE));
+        //         eYSpeed = Math.floor(Math.random()*(12 - 4) + 4);
+        //     }
+        // }
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = true;

@@ -15,7 +15,7 @@ class Player {
     }
 
     collide() {
-        if (this.y > 0) {
+        if (this.y > canvas.height) {
             this.y -= this.ySpeed;
         }
     }
