@@ -2,12 +2,14 @@
 
 <head>
     <title>Star Jumper</title>
+    <link rel="shortcut icon" href="images/StarSprite.png">
     <script src="player.js"></script>
     <script src="enemy.js"></script>
+    <script src="platform.js"></script>
 </head>
 
 <body>
-    <canvas id="gameCanvas" width="1000" height="800"></canvas>
+    <canvas id="gameCanvas" width="1000" height="600"></canvas>
     <script>
         var canvas;
         var canvasContext;
@@ -22,34 +24,48 @@
             setInterval(mainloop, 1000 / 50);
         }
 
+        //player vars
         var pXpos = 0;
         var pYpos = 0;
         var pXSpeed = 5;
         var pYSpeed = 5;
         const P_SIZE = 20;
+        var pSPRITE = new Image();
+        pSPRITE.source = 'images/SpriteSheet.png';
 
+        //enemy vars
         var eXpos = 0;
         var eYpos = 0;
         var eXSpeed = 5;
         var eYSpeed = 5;
         const E_SIZE = 20
 
+        //movement vars
         var leftKeyPressed = false;
         var upKeyPressed = false;
         var rightKeyPressed = false;
         var downKeyPressed = false;
         var spaceKeyPressed = false;
 
+        //movement constants
         const LEFT_KEY = 37;
         const UP_KEY = 38;
         const RIGHT_KEY = 39;
         const DOWN_KEY = 40;
         const SPACE_KEY = 32;
 
+        //platfrom vars
+        var PlatformXPos = 0;
+        var PlatformYPos = 0;
+        var PlatformXWidth = 100;
+        var PlatformYHeight = 100;
+
         var player = new
-        Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
+        Player(pSPRITE, pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
         var enemy = new
         Enemy(eXpos, eYpos, E_SIZE, E_SIZE, 'white', eXSpeed, eYSpeed);
+        var platform = new
+        Platform(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown');
 
         var userName = '';
 
@@ -59,7 +75,8 @@
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); //background 
-            colorRect(0, 720, canvas.width, 80, 'red'); //ground
+            colorRect(0, 520, canvas.width, 80, 'red'); //ground
+            // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
@@ -68,7 +85,10 @@
             player.collide();
             enemy.draw();
             enemy.EnemyMove();
+            platform.draw();
         }
+
+
 
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {

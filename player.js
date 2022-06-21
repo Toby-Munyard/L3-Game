@@ -1,5 +1,6 @@
 class Player {
-    constructor(x, y, h, w, c, xSpeed, ySpeed) {
+    constructor(pSPRITE, x, y, h, w, c, xSpeed, ySpeed) {
+        this.pSPRITE = pSPRITE;
         this.x = x;
         this.y = y;
         this.w = w;
@@ -11,7 +12,7 @@ class Player {
 
     draw() {
         canvasContext.fillStyle = this.c;
-        canvasContext.fillRect(this.x, this.y, this.w, this.h);
+        canvasContext.fillRect(this.pSPRITE, this.x, this.y, this.w, this.h);
     }
 
     collide() {
