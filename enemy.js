@@ -13,14 +13,4 @@ class Enemy {
         canvasContext.fillStyle = this.c;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     }
-
-    EnemyMove() {
-        this.y += this.ySpeed;
-
-        if (this.y > canvas.height) {
-            this.y = 0 - this.w;
-            this.x = Math.floor(Math.random() * (canvas.width - this.w));
-            this.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
-        }
-    }
 }

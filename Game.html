@@ -55,13 +55,13 @@
         const SPACE_KEY = 32;
 
         //platfrom vars
-        var PlatformXPos = 0;
-        var PlatformYPos = 0;
+        var PlatformXPos = 500;
+        var PlatformYPos = 300;
         var PlatformXWidth = 100;
-        var PlatformYHeight = 100;
+        var PlatformYHeight = 200;
 
         var player = new
-        Player(pSPRITE, pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
+        Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
         var enemy = new
         Enemy(eXpos, eYpos, E_SIZE, E_SIZE, 'white', eXSpeed, eYSpeed);
         var platform = new
@@ -84,10 +84,28 @@
             player.move();
             player.collide();
             enemy.draw();
-            enemy.EnemyMove();
+            EnemyMove();
             platform.draw();
         }
 
+        function EnemyMove() {
+        eYpos += eYSpeed;
+
+        if (eYpos > canvas.height) {
+            eYpos = 0 - E_SIZE;
+            eXpos = Math.floor(Math.random() * (canvas.width - E_SIZE));
+            eYSpeed = Math.floor(Math.random() * (12 - 4) + 4);
+        }
+        if (eYpos + E_SIZE > pYpos && eYpos < pYpos + P_SIZE && eXpos + E_SIZE > pXpos && eXpos < pXpos + P_SIZE) {
+                    // player respawns to center of canvas after enemy collides with player
+                    eXpos = Math.floor(Math.random() * (canvas.width - E_SIZE));
+                    eYpos = canvas.height + 100;
+                    pXpos = canvas.width / 2;
+                    pYpos = canvas.height - P_SIZE * 1.75;
+                }
+    }
+
+        
 
 
         function keyPressed(evt) {
