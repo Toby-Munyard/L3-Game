@@ -26,7 +26,12 @@
 
         //game variables
         var gameRun = true;
-        var difficulty = 'easy';
+
+        //background variables
+        var canvasWidth = 1000;
+        var canvasHeight = 600;  
+        var BackgroundImage = new Image();
+        BackgroundImage.src = 'images/BackgroundImage.jpg';
 
         //player vars
         var pXpos = 0;
@@ -78,7 +83,9 @@
             userName = prompt('what is your name?');
         };
 
+        var difficulty = 'easy';
         var pass = false;
+
         while (pass == false) {
             difficulty = prompt('What difficulty do you want? easy, medium or hard?', 'easy');
             difficulty = difficulty.toLowerCase(); //forces capitals to be lower case
@@ -89,7 +96,7 @@
 
         function mainloop() {
             if (gameRun) {
-            colorRect(0, 0, canvas.width, canvas.height, 'black'); //background 
+            drawImg(BackgroundImage, 0, 0, canvasWidth, canvasHeight); //background
             colorRect(0, 520, canvas.width, 80, 'red'); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
@@ -177,5 +184,8 @@
             canvasContext.font = f;
             canvasContext.fillText(msg, x, y);
         }
+        function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h);
+        } // end func this is how images are imported
     </script>
 </body>
