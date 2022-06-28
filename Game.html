@@ -38,11 +38,12 @@
         pSPRITE.source = 'images/SpriteSheet.png';
 
         //enemy vars
+        var totalEnemies = 15;
         var eXpos = 0;
         var eYpos = 0;
         var eXSpeed = 5;
         var eYSpeed = 5;
-        const E_SIZE = 20
+        const E_SIZE = 20;
 
         //movement vars
         var leftKeyPressed = false;
@@ -76,6 +77,15 @@
         while (userName == '' || userName == null) {
             userName = prompt('what is your name?');
         };
+
+        var pass = false;
+        while (pass == false) {
+            difficulty = prompt('What difficulty do you want? easy, medium or hard?', 'easy');
+            difficulty = difficulty.toLowerCase(); //forces capitals to be lower case
+            if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard') {
+                pass = true;
+            }
+        }
 
         function mainloop() {
             if (gameRun) {
