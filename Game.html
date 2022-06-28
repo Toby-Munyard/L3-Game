@@ -24,6 +24,10 @@
             setInterval(mainloop, 1000 / 50);
         }
 
+        //game variables
+        var gameRun = true;
+        var difficulty = 'easy';
+
         //player vars
         var pXpos = 0;
         var pYpos = 0;
@@ -74,6 +78,7 @@
         };
 
         function mainloop() {
+            if (gameRun) {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); //background 
             colorRect(0, 520, canvas.width, 80, 'red'); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
@@ -84,29 +89,38 @@
             player.move();
             player.collide();
             enemy.draw();
-            EnemyMove();
+            enemy.EnemyMove();
+            // enemy.isCollide();
             platform.draw();
-        }
+            colorText(userName + "'s score is ", 15, 20, '20px Arial', 'Lime')
+            colorText(userName + "'s health is ", 15, 40, '20px Arial', 'Lime')
+            colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+            } else {
+                colorText('Game Over!', 50, 50, '20px Arial', 'red');
+            };
+        };
 
-        function EnemyMove() {
-        eYpos += eYSpeed;
+        // function collison() {
+        // if (eYpos + E_SIZE > pYpos && eYpos < pYpos + P_SIZE && eXpos + E_SIZE > pXpos && eXpos < pXpos + P_SIZE) {
+        //             // player respawns to center of canvas after enemy collides with player
+        //             eXpos = Math.floor(Math.random() * (canvas.width - enemy.ESIZE));
+        //             eYpos = canvas.height + 100;
+        //             pXpos = canvas.width / 2;
+        //             pYpos = canvas.height - P_SIZE * 1.75;
+        //             console.log('collide');
+        //         }
+        //     }
 
-        if (eYpos > canvas.height) {
-            eYpos = 0 - E_SIZE;
-            eXpos = Math.floor(Math.random() * (canvas.width - E_SIZE));
-            eYSpeed = Math.floor(Math.random() * (12 - 4) + 4);
-        }
-        if (eYpos + E_SIZE > pYpos && eYpos < pYpos + P_SIZE && eXpos + E_SIZE > pXpos && eXpos < pXpos + P_SIZE) {
+            function collison() {
+        if (eYpos + E_SIZE > pYpos) {
                     // player respawns to center of canvas after enemy collides with player
-                    eXpos = Math.floor(Math.random() * (canvas.width - E_SIZE));
+                    eXpos = Math.floor(Math.random() * (canvas.width - enemy.E_SIZE));
                     eYpos = canvas.height + 100;
                     pXpos = canvas.width / 2;
                     pYpos = canvas.height - P_SIZE * 1.75;
+                    console.log('collide');
                 }
-    }
-
-        
-
+            }
 
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {
@@ -148,5 +162,10 @@
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         } //end func defines the basic outline of the screen
+        function colorText(msg, x, y, f, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.font = f;
+            canvasContext.fillText(msg, x, y);
+        }
     </script>
 </body>
