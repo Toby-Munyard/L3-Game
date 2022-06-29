@@ -28,10 +28,10 @@
         var gameRun = true;
 
         //background variables
-        var canvasWidth = 1000;
-        var canvasHeight = 600;  
+        var BackgroundWidth = 1000;
+        var BackgroundHeight = 600;  
         var BackgroundImage = new Image();
-        BackgroundImage.src = 'images/BackgroundImage.jpg';
+        BackgroundImage.src = 'images/Background.png';
 
         //player vars
         var pXpos = 0;
@@ -94,9 +94,13 @@
             }
         }
 
+        function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h);
+        } // end func this is how images are imported
+
         function mainloop() {
             if (gameRun) {
-            colorRect(0, 0, canvasWidth, canvasHeight, 'black'); //background
+            drawImg(BackgroundImage, 0, 0, BackgroundWidth, BackgroundHeight,); //background
             colorRect(0, 520, canvas.width, 80, 'red'); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
@@ -110,6 +114,7 @@
             // enemy.isCollide();
             platform.draw();
             enemyMove();
+            drawImg();
             colorText(userName + "'s score is ", 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is ", 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -184,8 +189,5 @@
             canvasContext.font = f;
             canvasContext.fillText(msg, x, y);
         }
-        function drawImg(src, x, y, w, h) {
-            canvasContext.drawImage(src, x, y, w, h);
-        } // end func this is how images are imported
     </script>
 </body>
