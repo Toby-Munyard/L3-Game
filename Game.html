@@ -122,17 +122,17 @@
                 enemy.y += enemy.ySpeed;
 
                 if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
-                    enemy.y = 0 - Enemy.w * Enemy.h;
+                    enemy.y = 0 - enemy.w * enemy.h;
                     enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
                     enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
 
-                if (enemy.y + enemy.w * enemy.h > player.y && enemy.y < player.y + player.w * player.h && enemy.x + enemy.w * enemy.h > player.x && enemy.x < player.x + player.w * player.h) {
+                if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x < player.x + P_SIZE) {
                     // player respawns to center of canvas after enemy collides with player
                     enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
                     enemy.y = canvas.height + 100;
                     player.x = canvas.width / 2;
-                    player.y = canvas.height - player.w * player.h * 1.75;
+                    player.y = canvas.height - P_SIZE * 1.75;
                     console.log('hit')
                 }
 
