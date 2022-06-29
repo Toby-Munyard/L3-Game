@@ -44,8 +44,8 @@
 
         //enemy vars
         var totalEnemies = 15;
-        var eXpos = 0;
-        var eYpos = 0;
+        var eXpos = 200;
+        var eYpos = 300;
         var eXSpeed = 5;
         var eYSpeed = 5;
         const E_SIZE = 20;
@@ -96,7 +96,7 @@
 
         function mainloop() {
             if (gameRun) {
-            drawImg(BackgroundImage, 0, 0, canvasWidth, canvasHeight); //background
+            colorRect(0, 0, canvasWidth, canvasHeight, 'black'); //background
             colorRect(0, 520, canvas.width, 80, 'red'); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
@@ -109,6 +109,7 @@
             enemy.EnemyMove();
             // enemy.isCollide();
             platform.draw();
+            enemyMove();
             colorText(userName + "'s score is ", 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is ", 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -117,27 +118,26 @@
             };
         };
 
-        // function collison() {
-        // if (eYpos + E_SIZE > pYpos && eYpos < pYpos + P_SIZE && eXpos + E_SIZE > pXpos && eXpos < pXpos + P_SIZE) {
-        //             // player respawns to center of canvas after enemy collides with player
-        //             eXpos = Math.floor(Math.random() * (canvas.width - enemy.ESIZE));
-        //             eYpos = canvas.height + 100;
-        //             pXpos = canvas.width / 2;
-        //             pYpos = canvas.height - P_SIZE * 1.75;
-        //             console.log('collide');
-        //         }
-        //     }
+        function enemyMove() {
+                enemy.y += enemy.ySpeed;
 
-            function collison() {
-        if (eYpos + E_SIZE > pYpos) {
-                    // player respawns to center of canvas after enemy collides with player
-                    eXpos = Math.floor(Math.random() * (canvas.width - enemy.E_SIZE));
-                    eYpos = canvas.height + 100;
-                    pXpos = canvas.width / 2;
-                    pYpos = canvas.height - P_SIZE * 1.75;
-                    console.log('collide');
+                if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
+                    enemy.y = 0 - Enemy.w * Enemy.h;
+                    enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
+                    enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
                 }
-            }
+
+                if (enemy.y + enemy.w * enemy.h > player.y && enemy.y < player.y + player.w * player.h && enemy.x + enemy.w * enemy.h > player.x && enemy.x < player.x + player.w * player.h) {
+                    // player respawns to center of canvas after enemy collides with player
+                    enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
+                    enemy.y = canvas.height + 100;
+                    player.x = canvas.width / 2;
+                    player.y = canvas.height - player.w * player.h * 1.75;
+                    console.log('hit')
+                }
+
+        } //end func moves enemies and respawns them at the top after they hit the player
+
 
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {
