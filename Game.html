@@ -26,6 +26,8 @@
 
         //game variables
         var gameRun = true;
+        var stageNumber = 1;
+        var health = 3;
 
         //background variables
         var BackgroundWidth = 1000;
@@ -114,9 +116,9 @@
             // enemy.isCollide();
             platform.draw();
             enemyMove();
-            drawImg();
-            colorText(userName + "'s score is ", 15, 20, '20px Arial', 'Lime')
-            colorText(userName + "'s health is ", 15, 40, '20px Arial', 'Lime')
+            GameEnd();
+            colorText(userName + "is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
+            colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
             } else {
                 colorText('Game Over!', 50, 50, '20px Arial', 'red');
@@ -134,7 +136,7 @@
 
                 if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x < player.x + P_SIZE) {
                     // player respawns to center of canvas after enemy collides with player
-                    enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
+                    enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
                     enemy.y = canvas.height + 100;
                     player.x = canvas.width / 2;
                     player.y = canvas.height - P_SIZE * 1.75;
@@ -143,6 +145,10 @@
 
         } //end func moves enemies and respawns them at the top after they hit the player
 
+        function GameEnd() {
+            if (health <= 0) 
+            gamerun = false;
+        }
 
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {
@@ -179,15 +185,16 @@
                 spaceKeyPressed = false;
             }
         }
-
-        function colorRect(x, y, w, h, c) {
-            canvasContext.fillStyle = c;
-            canvasContext.fillRect(x, y, w, h);
-        } //end func defines the basic outline of the screen
+        
         function colorText(msg, x, y, f, c) {
             canvasContext.fillStyle = c;
             canvasContext.font = f;
             canvasContext.fillText(msg, x, y);
         }
+        function colorRect(x, y, w, h, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
+        } //end func defines the basic outline of the screen
+
     </script>
 </body>
