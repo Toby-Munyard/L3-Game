@@ -19,7 +19,7 @@ class Player {
             this.y -= this.ySpeed;
         }
     }
-
+    
     move() {
         if (leftKeyPressed && this.x > 0) {
             this.x -= this.xSpeed;

@@ -28,6 +28,11 @@
         var gameRun = true;
         var stageNumber = 1;
         var health = 3;
+        var touchingPlatform = false;
+
+        //bottom of game
+        var Bottom = new Image();
+        Bottom.src = 'images/GameBottom.png'
 
         //background variables
         var BackgroundWidth = 1000;
@@ -103,7 +108,7 @@
         function mainloop() {
             if (gameRun) {
             drawImg(BackgroundImage, 0, 0, BackgroundWidth, BackgroundHeight,); //background
-            colorRect(0, 520, canvas.width, 80, 'red'); //ground
+            drawImg(Bottom, 0, 520, canvas.width, 80); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
@@ -113,15 +118,17 @@
             player.collide();
             enemy.draw();
             enemy.EnemyMove();
-            // enemy.isCollide();
             platform.draw();
             enemyMove();
             GameEnd();
-            colorText(userName + "is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
+            PlatformCollision();
+            playerStop(); 
+            colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
             } else {
                 colorText('Game Over!', 50, 50, '20px Arial', 'red');
+                drawImg('images/StarSprite', 0, 0, BackgroundWidth, BackgroundHeight,); //background
             };
         };
 
@@ -139,12 +146,29 @@
                     enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
                     enemy.y = canvas.height + 100;
                     player.x = canvas.width / 2;
-                    player.y = canvas.height - P_SIZE * 1.75;
-                    console.log('hit')
+                    player.y = canvas.height - 100;
+                    health--;
+                    console.log('Health:' + health);
                 }
 
         } //end func moves enemies and respawns them at the top after they hit the player
 
+        function PlatformCollision() {
+            if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x + PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
+                // player stops moving if touching platform 
+                touchingPlatform = true;
+                player.y 
+                console.log('collision')
+                }
+        }
+
+        function playerStop() {
+            if(touchingPlatform) {
+                player.ySpeed = 0;
+                console.log('stop')
+            }
+
+        }
         function GameEnd() {
             if (health <= 0) 
             gamerun = false;
