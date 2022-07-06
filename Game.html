@@ -31,6 +31,8 @@
         var touchingPlatform = false;
 
         //bottom of game
+        var bXpos = 0;
+        var bYpos = 520;
         var Bottom = new Image();
         Bottom.src = 'images/GameBottom.png'
 
@@ -108,7 +110,7 @@
         function mainloop() {
             if (gameRun) {
             drawImg(BackgroundImage, 0, 0, BackgroundWidth, BackgroundHeight,); //background
-            drawImg(Bottom, 0, 520, canvas.width, 80); //ground
+            drawImg(Bottom, bXpos, bYpos, canvas.width, 80); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
@@ -117,11 +119,12 @@
             player.move();
             player.collide();
             enemy.draw();
-            enemy.EnemyMove();
             platform.draw();
+            playerStop();
             enemyMove();
             GameEnd();
             PlatformCollision();
+            bottomCollision();
             playerStop(); 
             colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
@@ -167,8 +170,16 @@
                 player.ySpeed = 0;
                 console.log('stop')
             }
-
         }
+
+
+        function bottomCollision() {
+            if(player.y >= bYpos) {
+                player.y = bYpos - player.h;
+                console.log('HES GONE')
+            }
+        }
+
         function GameEnd() {
             if (health <= 0) 
             gamerun = false;

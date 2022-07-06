@@ -19,8 +19,13 @@ class Player {
             this.y -= this.ySpeed;
         }
     }
-    
+
     move() {
+        var gravity = 5;
+
+        this.y += gravity;
+
+
         if (leftKeyPressed && this.x > 0) {
             this.x -= this.xSpeed;
         }
