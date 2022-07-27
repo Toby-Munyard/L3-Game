@@ -139,8 +139,10 @@
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
             } else {
-                colorText('Game Over!', 50, 50, '20px Arial', 'red');
-                drawImg('images/StarSprite', 0, 0, BackgroundWidth, BackgroundHeight,); //background
+                colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
+                colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
+                colorText(userName +' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
+                colorText('Click the reload page button to try and win!', 50, 110, '20px Arial', 'red');
             };
         };
 
@@ -198,8 +200,16 @@
         }
 
         function GameEnd() {
-            if (health <= 0) 
-            gamerun = false;
+            if (health <= 0) {
+            gameRun = false;
+            }
+        }
+
+        function GameWin() {
+            if (stageNumber >= 6) {
+
+            }
+
         }
 
         function keyPressed(evt) {
