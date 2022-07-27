@@ -21,7 +21,7 @@ class Player {
     }
 
     move() {
-        var gravity = 5;
+        var gravity = 20;
 
         this.y += gravity;
 
@@ -36,7 +36,7 @@ class Player {
             }
         }
         if (upKeyPressed) {
-            this.y -= this.ySpeed;
+            this.y -= this.ySpeed + 10;
             if (this.y < 0 || this.y > canvas.height) {
                 this.yspeed = this.yspeed * -1;
             } else if (this.y < canvas.height || this.y > canvas.height) {

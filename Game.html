@@ -29,6 +29,16 @@
         var stageNumber = 1;
         var health = 3;
         var touchingPlatform = false;
+        var Background1 = new Image();
+        Background1.src = 'images/Background.png';
+        var Background2 = new Image();
+        Background2.src = 'images/Background2.png';
+        var Background3 = new Image();
+        Background3.src = 'images/Background3.jpg';
+        var Background4 = new Image();
+        Background4.src = 'images/Background4.png';
+        var Background5 = new Image();
+        Background5.src = 'images/Background5.jpg';
 
         //bottom of game
         var bXpos = 0;
@@ -39,8 +49,6 @@
         //background variables
         var BackgroundWidth = 1000;
         var BackgroundHeight = 600;  
-        var BackgroundImage = new Image();
-        BackgroundImage.src = 'images/Background.png';
 
         //player vars
         var pXpos = 0;
@@ -109,7 +117,7 @@
 
         function mainloop() {
             if (gameRun) {
-            drawImg(BackgroundImage, 0, 0, BackgroundWidth, BackgroundHeight,); //background
+            drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
             drawImg(Bottom, bXpos, bYpos, canvas.width, 80); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
@@ -126,6 +134,7 @@
             PlatformCollision();
             bottomCollision();
             playerStop(); 
+            NewLevel();
             colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -172,11 +181,19 @@
             }
         }
 
-
         function bottomCollision() {
-            if(player.y >= bYpos) {
-                player.y = bYpos - player.h;
+            if(player.y >= bYpos - 20) {
+                player.y = bYpos - 20;
                 console.log('HES GONE')
+            }
+        }
+
+        function NewLevel() {
+            if(player.x >= canvas.width) {
+                stageNumber++;
+                console.log('Stage: ' + stageNumber) 
+                // Background1 = false;
+                // Background2 = true;
             }
         }
 
