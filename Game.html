@@ -70,6 +70,7 @@
 
         //enemy vars
         var totalEnemies = 15;
+        var startingPos = true;
         var eXpos = 200;
         var eYpos = 300;
         var eXSpeed = 5;
@@ -120,12 +121,18 @@
             }
             if (difficulty == 'easy') {
                 totalEnemies = 5;
+                min = 5;
+                max = 10;
             }
             if (difficulty == 'medium') {
                 totalEnemies = 10;
+                min = 20;
+                max = 30;
             }
             if (difficulty == 'hard') {
                 totalEnemies = 20;
+                min = 30;
+                max = 50;
             }
         }
 
@@ -146,7 +153,7 @@
 
                 if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x < player.x + P_SIZE) {
                     // player respawns to center of canvas after enemy collides with player
-                    enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
+                    enemy.x = Math.floor(Math.random() * (canvas.width - enemies.E_SIZE));
                     enemy.y = canvas.height + 100;
                     player.x = canvas.width / 2;
                     player.y = canvas.height - 100;
@@ -155,6 +162,17 @@
                 }
 
         } //end func moves enemies and respawns them at the top after they hit the player
+
+        function makeEnemy() {
+            var ePos = Math.floor(Math.random() * 3) + 1;
+            const E_SIZE = 20;
+            enemy.x = ePos * canvas.width / 3;
+            enemy.y = 0 - E_SIZE;
+            enemy.xSpeed = Math.floor(Math.random() * (max - min) + min);
+            enemy.ySpeed = Math.floor(Math.random() * (max - min) + min);
+
+            // enemy.push(enemy);
+        }
 
         function PlatformCollision() {
             if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x + PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
@@ -262,6 +280,13 @@
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
+            if (startingPos) {
+                    for (i = 0; i < totalEnemies; i++) {
+                        makeEnemy();
+                    }
+                    startingPos = false;
+                };
+
             player.move();
             player.collide();
             playerStop();
@@ -275,6 +300,7 @@
             platform.draw();
             player.draw();
             enemy.draw();
+            makeEnemy();
             colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -287,7 +313,7 @@
             if (gameWin) {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
-                colorText(userName +' you made it past ' + stageNumber - 1, 50, 80, '20px Arial', 'green');
+                colorText(userName +' you made it through every stage!', 50, 80, '20px Arial', 'green');
                 colorText('Click the reload page button to play again!', 50, 110, '20px Arial', 'green');
             }
 
