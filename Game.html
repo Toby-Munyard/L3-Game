@@ -39,12 +39,20 @@
         Background4.src = 'images/Background4.png';
         var Background5 = new Image();
         Background5.src = 'images/Background5.jpg';
+        var Stage1Bottom = new Image();
+        Stage1Bottom.src = 'images/Stage1Bottom.png';
+        var Stage2Bottom = new Image();
+        Stage2Bottom.src = 'images/Stage2Bottom.png';
+        var Stage3Bottom = new Image();
+        Stage3Bottom.src = 'images/Stage3Bottom.png';
+        var Stage4Bottom = new Image();
+        Stage4Bottom.src = 'images/Stage4Bottom.png';
+        var Stage5Bottom = new Image();
+        Stage5Bottom.src = 'images/Stage5Bottom.png';
 
         //bottom of game
         var bXpos = 0;
         var bYpos = 520;
-        var Bottom = new Image();
-        Bottom.src = 'images/Stage5Bottom.png'
 
         //background variables
         var BackgroundWidth = 1000;
@@ -109,6 +117,15 @@
             if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard') {
                 pass = true;
             }
+            if (difficulty == 'easy') {
+                totalEnemies = 5;
+            }
+            if (difficulty == 'medium') {
+                totalEnemies = 10;
+            }
+            if (difficulty == 'hard') {
+                totalEnemies = 20;
+            }
         }
 
         function drawImg(src, x, y, w, h) {
@@ -118,7 +135,7 @@
         function mainloop() {
             if (gameRun) {
             drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
-            drawImg(Bottom, bXpos, bYpos, canvas.width, 80); //ground
+            drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
             // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
             // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
             // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
@@ -135,7 +152,7 @@
             bottomCollision();
             playerStop(); 
             NewLevel();
-            GameWin();
+            changeStyle();
             colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -200,23 +217,32 @@
             }
         }
 
-        function Stage2() {
-            if(stageNumber = 2) {
-                Bottom = false;
-                drawImg(Bottom, bXpos, bYpos, canvas.width, 80); //ground
+        function changeStyle() {
+            if(stageNumber == 1) {
+                drawImg(Background1, 0, 0, canvas.width, canvas.height);
+                drawImg(Stage2Bottom, bXpos, bYpos, canvas.width, 80);
+            }
+            if(stageNumber == 2) {
+                drawImg(Background2, 0, 0, canvas.width, canvas.height);
+                drawImg(Stage2Bottom, bXpos, bYpos, canvas.width, 80);
+            }
+            if(stageNumber == 3) {
+                drawImg(Background3, 0, 0, canvas.width, canvas.height);
+                drawImg(Stage3Bottom, bXpos, bYpos, canvas.width, 80);
+            }
+            if(stageNumber == 4) {
+                drawImg(Background4, 0, 0, canvas.width, canvas.height);
+                drawImg(Stage4Bottom, bXpos, bYpos, canvas.width, 80);
+            }
+            if(stageNumber == 5) {
+                drawImg(Background5, 0, 0, canvas.width, canvas.height);
+                drawImg(Stage5Bottom, bXpos, bYpos, canvas.width, 80);
             }
         }
         function GameEnd() {
             if (health <= 0) {
             gameRun = false;
             }
-        }
-
-        function GameWin() {
-            if (stageNumber >= 6) {
-                gameRun = null;
-            }
-
         }
 
         function keyPressed(evt) {
