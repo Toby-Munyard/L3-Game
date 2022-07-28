@@ -44,7 +44,7 @@
         var bXpos = 0;
         var bYpos = 520;
         var Bottom = new Image();
-        Bottom.src = 'images/GameBottom.png'
+        Bottom.src = 'images/Stage5Bottom.png'
 
         //background variables
         var BackgroundWidth = 1000;
@@ -135,6 +135,7 @@
             bottomCollision();
             playerStop(); 
             NewLevel();
+            GameWin();
             colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
             colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
             colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -199,6 +200,12 @@
             }
         }
 
+        function Stage2() {
+            if(stageNumber = 2) {
+                Bottom = false;
+                drawImg(Bottom, bXpos, bYpos, canvas.width, 80); //ground
+            }
+        }
         function GameEnd() {
             if (health <= 0) {
             gameRun = false;
@@ -207,7 +214,7 @@
 
         function GameWin() {
             if (stageNumber >= 6) {
-
+                gameRun = null;
             }
 
         }
