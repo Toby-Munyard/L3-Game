@@ -26,6 +26,7 @@
 
         //game variables
         var gameRun = true;
+        var gameWin = false;
         var stageNumber = 1;
         var health = 3;
         var touchingPlatform = false;
@@ -213,7 +214,7 @@
             gameRun = false;
             }
             if (stageNumber >= 6) {
-                gameRun = false;
+                gameWin = true;
             }
         }
 
@@ -263,7 +264,6 @@
 
             player.move();
             player.collide();
-            platform.draw();
             playerStop();
             enemyMove();
             GameEnd();
@@ -272,6 +272,7 @@
             playerStop(); 
             NewLevel();
             changeStyle();
+            platform.draw();
             player.draw();
             enemy.draw();
             colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
@@ -283,6 +284,13 @@
                 colorText(userName +' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
                 colorText('Click the reload page button to try and win!', 50, 110, '20px Arial', 'red');
             };
+            if (gameWin) {
+                colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
+                colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
+                colorText(userName +' you made it past ' + stageNumber - 1, 50, 80, '20px Arial', 'green');
+                colorText('Click the reload page button to play again!', 50, 110, '20px Arial', 'green');
+            }
+
         };
         
         function colorText(msg, x, y, f, c) {
