@@ -132,37 +132,7 @@
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
 
-        function mainloop() {
-            if (gameRun) {
-            drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
-            drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
-            // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
-            // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
-            // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
-            player.draw();
-            player.move();
-            player.collide();
-            enemy.draw();
-            platform.draw();
-            playerStop();
-            enemyMove();
-            GameEnd();
-            PlatformCollision();
-            bottomCollision();
-            playerStop(); 
-            NewLevel();
-            changeStyle();
-            colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
-            colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
-            colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
-            } else {
-                colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
-                colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
-                colorText(userName +' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
-                colorText('Click the reload page button to try and win!', 50, 110, '20px Arial', 'red');
-            };
-        };
 
         function enemyMove() {
                 enemy.y += enemy.ySpeed;
@@ -212,15 +182,13 @@
             if(player.x >= canvas.width) {
                 stageNumber++;
                 console.log('Stage: ' + stageNumber) 
-                // Background1 = false;
-                // Background2 = true;
             }
         }
 
         function changeStyle() {
             if(stageNumber == 1) {
                 drawImg(Background1, 0, 0, canvas.width, canvas.height);
-                drawImg(Stage2Bottom, bXpos, bYpos, canvas.width, 80);
+                drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80);
             }
             if(stageNumber == 2) {
                 drawImg(Background2, 0, 0, canvas.width, canvas.height);
@@ -239,9 +207,13 @@
                 drawImg(Stage5Bottom, bXpos, bYpos, canvas.width, 80);
             }
         }
+
         function GameEnd() {
             if (health <= 0) {
             gameRun = false;
+            }
+            if (stageNumber >= 6) {
+                gameRun = false;
             }
         }
 
@@ -280,6 +252,38 @@
                 spaceKeyPressed = false;
             }
         }
+
+        function mainloop() {
+            if (gameRun) {
+            // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
+            // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
+            // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
+            // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
+            // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
+
+            player.move();
+            player.collide();
+            platform.draw();
+            playerStop();
+            enemyMove();
+            GameEnd();
+            PlatformCollision();
+            bottomCollision();
+            playerStop(); 
+            NewLevel();
+            changeStyle();
+            player.draw();
+            enemy.draw();
+            colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
+            colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
+            colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+            } else {
+                colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
+                colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
+                colorText(userName +' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
+                colorText('Click the reload page button to try and win!', 50, 110, '20px Arial', 'red');
+            };
+        };
         
         function colorText(msg, x, y, f, c) {
             canvasContext.fillStyle = c;
