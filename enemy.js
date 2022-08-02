@@ -14,9 +14,18 @@ class Enemy extends Player {
         canvasContext.fillStyle = this.colour;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     }
-    EnemyMove() {
-        // this.y += this.ySpeed;
+    move() {
+        this.y += this.ySpeed;
+        this.x += this.xSpeed;
 
+        if (this.x + this.w >= canvas.width || this.x <= 0){
+            this.xSpeed *= -1;
+        }
+
+        if (this.y > canvas.height){
+            this.y = 0 - this.h;
+            this.ySpeed = Math.floor(Math.random()*(6 - 3) + 2);
+        }
         // if (this.y > canvas.height) { // enemy out of bottom of canvas 
         //     this.y = 0 - this.w * this.h;
         //     this.x = Math.floor(Math.random() * (canvas.width - this.w * this.h));

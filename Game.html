@@ -57,7 +57,7 @@
 
         //background variables
         var BackgroundWidth = 1000;
-        var BackgroundHeight = 600;  
+        var BackgroundHeight = 600;
 
         //player vars
         var pXpos = 0;
@@ -69,13 +69,14 @@
         pSPRITE.source = 'images/SpriteSheet.png';
 
         //enemy vars
-        var totalEnemies = 15;
-        var startingPos = true;
-        var eXpos = 200;
-        var eYpos = 300;
-        var eXSpeed = 5;
-        var eYSpeed = 5;
-        const E_SIZE = 20;
+        var enemies = [];
+        var setUp = true;
+        var totalEnemies = 5;
+        // var eXpos = 200;
+        // var eYpos = 300;
+        // var eXSpeed = 5;
+        // var eYSpeed = 5;
+        // const E_SIZE = 20;
 
         //movement vars
         var leftKeyPressed = false;
@@ -99,8 +100,6 @@
 
         var player = new
         Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
-        var enemy = new
-        Enemy(eXpos, eYpos, E_SIZE, E_SIZE, 'white', eXSpeed, eYSpeed);
         var platform = new
         Platform(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown');
 
@@ -140,88 +139,97 @@
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
 
-
-
         function enemyMove() {
-                enemy.y += enemy.ySpeed;
 
-                if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
-                    enemy.y = 0 - enemy.w * enemy.h;
-                    enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
-                    enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
-                }
+            enemy.y += enemy.ySpeed;
 
-                if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x < player.x + P_SIZE) {
-                    // player respawns to center of canvas after enemy collides with player
-                    enemy.x = Math.floor(Math.random() * (canvas.width - enemies.E_SIZE));
-                    enemy.y = canvas.height + 100;
-                    player.x = canvas.width / 2;
-                    player.y = canvas.height - 100;
-                    health--;
-                    console.log('Health:' + health);
-                }
+            if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
+                enemy.y = 0 - enemy.w * enemy.h;
+                enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
+                enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
+            }
 
+            if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x <
+                player.x + P_SIZE) {
+                // player respawns to center of canvas after enemy collides with player
+                enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
+                enemy.y = canvas.height + 100;
+                player.x = 0;
+                player.y = canvas.height - 100;
+                health--;
+                console.log('Health:' + health);
+            }
         } //end func moves enemies and respawns them at the top after they hit the player
 
-        function makeEnemy() {
-            var ePos = Math.floor(Math.random() * 3) + 1;
-            const E_SIZE = 20;
-            enemy.x = ePos * canvas.width / 3;
-            enemy.y = 0 - E_SIZE;
-            enemy.xSpeed = Math.floor(Math.random() * (max - min) + min);
-            enemy.ySpeed = Math.floor(Math.random() * (max - min) + min);
+        var enemyCounter = 0;
 
-            // enemy.push(enemy);
+        function makeEnemy() {
+            var ePos = Math.floor(Math.random() * 7) + 1;
+            const E_SIZE = 20;
+            const gap = 30;
+            var eXpos = enemyCounter * E_SIZE + gap * enemyCounter;
+            var eYpos = 0 - E_SIZE;
+            var eXspeed = Math.floor(Math.random() * (10 - 3) + 3);
+            var eYspeed = Math.floor(Math.random() * (5 - 2) + 2);
+
+            enemyCounter++
+
+            var enemy = new
+            Enemy(eXpos, eYpos, E_SIZE, E_SIZE, 'white', eXspeed, eYspeed);
+
+            enemies.push(enemy);
         }
 
         function PlatformCollision() {
-            if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x + PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
+            if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
+                PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
                 // player stops moving if touching platform 
                 touchingPlatform = true;
-                player.y 
+                player.y = platform.y - P_SIZE;
+                player.x = platform.x - P_SIZE;
                 console.log('collision')
-                }
+            }
         }
 
         function playerStop() {
-            if(touchingPlatform) {
+            if (touchingPlatform) {
                 player.ySpeed = 0;
                 console.log('stop')
             }
         }
 
         function bottomCollision() {
-            if(player.y >= bYpos - 20) {
+            if (player.y >= bYpos - 20) {
                 player.y = bYpos - 20;
                 console.log('HES GONE')
             }
         }
 
         function NewLevel() {
-            if(player.x >= canvas.width) {
+            if (player.x >= canvas.width) {
                 stageNumber++;
-                console.log('Stage: ' + stageNumber) 
+                console.log('Stage: ' + stageNumber)
             }
         }
 
         function changeStyle() {
-            if(stageNumber == 1) {
+            if (stageNumber == 1) {
                 drawImg(Background1, 0, 0, canvas.width, canvas.height);
                 drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80);
             }
-            if(stageNumber == 2) {
+            if (stageNumber == 2) {
                 drawImg(Background2, 0, 0, canvas.width, canvas.height);
                 drawImg(Stage2Bottom, bXpos, bYpos, canvas.width, 80);
             }
-            if(stageNumber == 3) {
+            if (stageNumber == 3) {
                 drawImg(Background3, 0, 0, canvas.width, canvas.height);
                 drawImg(Stage3Bottom, bXpos, bYpos, canvas.width, 80);
             }
-            if(stageNumber == 4) {
+            if (stageNumber == 4) {
                 drawImg(Background4, 0, 0, canvas.width, canvas.height);
                 drawImg(Stage4Bottom, bXpos, bYpos, canvas.width, 80);
             }
-            if(stageNumber == 5) {
+            if (stageNumber == 5) {
                 drawImg(Background5, 0, 0, canvas.width, canvas.height);
                 drawImg(Stage5Bottom, bXpos, bYpos, canvas.width, 80);
             }
@@ -229,7 +237,7 @@
 
         function GameEnd() {
             if (health <= 0) {
-            gameRun = false;
+                gameRun = false;
             }
             if (stageNumber >= 6) {
                 gameWin = true;
@@ -274,60 +282,68 @@
 
         function mainloop() {
             if (gameRun) {
-            // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
-            // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
-            // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
-            // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
-            // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
+                // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
+                // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
+                // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
+                // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
+                // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
-            if (startingPos) {
+                if (setUp) {
                     for (i = 0; i < totalEnemies; i++) {
                         makeEnemy();
                     }
-                    startingPos = false;
+                    setUp = false;
                 };
 
-            player.move();
-            player.collide();
-            playerStop();
-            enemyMove();
-            GameEnd();
-            PlatformCollision();
-            bottomCollision();
-            playerStop(); 
-            NewLevel();
-            changeStyle();
-            platform.draw();
-            player.draw();
-            enemy.draw();
-            makeEnemy();
-            colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
-            colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
-            colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+               
+
+                player.move();
+                player.collide();
+                playerStop();
+                GameEnd();
+                PlatformCollision();
+                bottomCollision();
+                playerStop();
+                NewLevel();
+                changeStyle();
+                platform.draw();
+                player.draw();
+                enemies.push();
+                makeEnemy();
+                colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
+                colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
+                colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+
+                if (enemies.length > 0) {
+                    enemies.forEach(function (enemy, i) {
+                        enemy.draw();
+                        enemy.move();
+                    });
+                }
             } else {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
-                colorText(userName +' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
+                colorText(userName + ' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
                 colorText('Click the reload page button to try and win!', 50, 110, '20px Arial', 'red');
             };
             if (gameWin) {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
-                colorText(userName +' you made it through every stage!', 50, 80, '20px Arial', 'green');
+                colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'green');
                 colorText('Click the reload page button to play again!', 50, 110, '20px Arial', 'green');
             }
 
         };
-        
+
         function colorText(msg, x, y, f, c) {
             canvasContext.fillStyle = c;
             canvasContext.font = f;
             canvasContext.fillText(msg, x, y);
         }
+
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         } //end func defines the basic outline of the screen
-
     </script>
 </body>

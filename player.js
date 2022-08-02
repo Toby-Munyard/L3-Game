@@ -36,7 +36,7 @@ class Player {
             }
         }
         if (upKeyPressed) {
-            this.y -= this.ySpeed + 10;
+            this.y -= this.ySpeed + 30;
             if (this.y < 0 || this.y > canvas.height) {
                 this.yspeed = this.yspeed * -1;
             } else if (this.y < canvas.height || this.y > canvas.height) {
