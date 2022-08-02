@@ -139,27 +139,27 @@
             canvasContext.drawImage(src, x, y, w, h);
         } // end func this is how images are imported
 
-        function enemyMove() {
+        // function enemyMove() {
 
-            enemy.y += enemy.ySpeed;
+        //     enemy.y += enemy.ySpeed;
 
-            if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
-                enemy.y = 0 - enemy.w * enemy.h;
-                enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
-                enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
-            }
+        //     if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
+        //         enemy.y = 0 - enemy.w * enemy.h;
+        //         enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
+        //         enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
+        //     }
 
-            if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x <
-                player.x + P_SIZE) {
-                // player respawns to center of canvas after enemy collides with player
-                enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
-                enemy.y = canvas.height + 100;
-                player.x = 0;
-                player.y = canvas.height - 100;
-                health--;
-                console.log('Health:' + health);
-            }
-        } //end func moves enemies and respawns them at the top after they hit the player
+        //     if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x <
+        //         player.x + P_SIZE) {
+        //         // player respawns to center of canvas after enemy collides with player
+        //         enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
+        //         enemy.y = canvas.height + 100;
+        //         player.x = 0;
+        //         player.y = canvas.height - 100;
+        //         health--;
+        //         console.log('Health:' + health);
+        //     }
+        // } //end func moves enemies and respawns them at the top after they hit the player
 
         var enemyCounter = 0;
 

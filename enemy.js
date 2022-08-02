@@ -13,6 +13,7 @@ class Enemy {
         canvasContext.fillStyle = this.colour;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     }
+
     move() {
         this.y += this.ySpeed;
         this.x += this.xSpeed;
@@ -32,6 +33,8 @@ class Enemy {
             player.w && this.y + this.h > player.y && this.y < player.y + player.h){
                 player.x = 0;
                 health--;
+                console.log('Health:' + health);
+                this.y = 0 - this.h;
         }
     }
 }
