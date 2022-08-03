@@ -72,6 +72,7 @@
         var enemies = [];
         var setUp = true;
         var totalEnemies = 5;
+        var enemyCounter = 0;
         // var eXpos = 200;
         // var eYpos = 300;
         // var eXSpeed = 5;
@@ -119,25 +120,25 @@
                 pass = true;
             }
             if (difficulty == 'easy') {
-                totalEnemies = 5;
-                min = 5;
-                max = 10;
+                enemyCounter = 15;
+                min = 2;
+                max = 8;
             }
             if (difficulty == 'medium') {
-                totalEnemies = 10;
-                min = 20;
-                max = 30;
+                enemyCounter = 10;
+                min = 6;
+                max = 12;
             }
             if (difficulty == 'hard') {
-                totalEnemies = 20;
-                min = 30;
-                max = 50;
+                enemyCounter = 5;
+                min = 10;
+                max = 20;
             }
-        }
+        };
 
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
-        } // end func this is how images are imported
+        }; // end func this is how images are imported
 
         // function enemyMove() {
 
@@ -161,16 +162,14 @@
         //     }
         // } //end func moves enemies and respawns them at the top after they hit the player
 
-        var enemyCounter = 0;
-
         function makeEnemy() {
             var ePos = Math.floor(Math.random() * 7) + 1;
             const E_SIZE = 20;
             const gap = 30;
             var eXpos = enemyCounter * E_SIZE + gap * enemyCounter;
             var eYpos = 0 - E_SIZE;
-            var eXspeed = Math.floor(Math.random() * (10 - 3) + 3);
-            var eYspeed = Math.floor(Math.random() * (5 - 2) + 2);
+            var eXspeed = Math.floor(Math.random() * (max - min) + max);
+            var eYspeed = Math.floor(Math.random() * (max - min) + max);
 
             enemyCounter++
 
@@ -332,7 +331,7 @@
                 colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
                 colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'green');
                 colorText('Click the reload page button to play again!', 50, 110, '20px Arial', 'green');
-            }
+            };
 
         };
 
