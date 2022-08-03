@@ -28,6 +28,7 @@ class Enemy {
         }
 
     }
+
     hit(){
         if(this.x + this.w > player.x && this.x < player.x + 
             player.w && this.y + this.h > player.y && this.y < player.y + player.h){
@@ -37,4 +38,25 @@ class Enemy {
                 this.y = 0 - this.h;
         }
     }
+
+    outOfBounds(){
+        return this.y < 0;
+    }
+
+    hasHitItem(){
+        return (this.x + this.w >= platform.x && this.x <= platform.x + platform.w) && (this.y + this.h >= platform.y && this.y <= platform.y + platform.h);
+    }
+
+    hasHitPlatform(){
+        this.hasHitItem(platform);
+    }
+
+    hasCollided(){
+        var self = true;
+        var collided = false;
+        if(self.hasHitPlatform(platform)){
+
+        }
+    }
+
 }

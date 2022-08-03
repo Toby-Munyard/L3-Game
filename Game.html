@@ -94,15 +94,16 @@
         const SPACE_KEY = 32;
 
         //platfrom vars
-        var PlatformXPos = 500;
-        var PlatformYPos = 300;
-        var PlatformXWidth = 100;
-        var PlatformYHeight = 200;
+        var platforms = [];
+        var totalPlatforms = 5;
+        var platformCounter = 0;
+        // var PlatformXPos = 500;
+        // var PlatformYPos = 300;
+        // var PlatformXWidth = 100;
+        // var PlatformYHeight = 200;
 
         var player = new
         Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
-        var platform = new
-        Platform(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown');
 
         var userName = '';
 
@@ -122,17 +123,17 @@
             if (difficulty == 'easy') {
                 enemyCounter = 15;
                 min = 2;
-                max = 8;
+                max = 6;
             }
             if (difficulty == 'medium') {
-                enemyCounter = 10;
+                enemyCounter = 12;
                 min = 6;
-                max = 12;
+                max = 10;
             }
             if (difficulty == 'hard') {
-                enemyCounter = 5;
+                enemyCounter = 10;
                 min = 10;
-                max = 20;
+                max = 12;
             }
         };
 
@@ -179,16 +180,31 @@
             enemies.push(enemy);
         }
 
-        function PlatformCollision() {
-            if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
-                PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
-                // player stops moving if touching platform 
-                touchingPlatform = true;
-                player.y = platform.y - P_SIZE;
-                player.x = platform.x - P_SIZE;
-                console.log('collision')
-            }
+        function makePlatform() {
+            var platformPos = Math.floor(Math.random() * 7) + 1;
+            const PLATFORM_SIZE = 20;
+            const platformGap = 30;
+            var platformXpos = enemyCounter * PLATFORM_SIZE + platformGap * platformCounter;
+            var platformYpos = Math.floor(Math.random() * (500 - 10) + max);
+
+            platformCounter++
+
+            var platform = new
+        Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'brown');
+
+            platforms.push(platform);
         }
+
+        // function PlatformCollision() {
+        //     if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
+        //         PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
+        //         // player stops moving if touching platform 
+        //         touchingPlatform = true;
+        //         player.y = platform.y - P_SIZE;
+        //         player.x = platform.x - P_SIZE;
+        //         console.log('collision')
+        //     }
+        // }
 
         function playerStop() {
             if (touchingPlatform) {
@@ -291,6 +307,9 @@
                     for (i = 0; i < totalEnemies; i++) {
                         makeEnemy();
                     }
+                    for (i = 0; i < totalPlatforms; i++) {
+                        makePlatform();
+                    }
                     setUp = false;
                 };
 
@@ -300,15 +319,14 @@
                 player.collide();
                 playerStop();
                 GameEnd();
-                PlatformCollision();
                 bottomCollision();
                 playerStop();
                 NewLevel();
                 changeStyle();
-                platform.draw();
                 player.draw();
                 enemies.push();
                 makeEnemy();
+                makePlatform();
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
@@ -320,6 +338,14 @@
                         enemy.hit();
                     });
                 }
+
+                if (platforms.length > 0) {
+                    platforms.forEach(function (platform, i) {
+                        platform.draw();
+                        platform.hit();
+                    });
+                }
+
             } else {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
