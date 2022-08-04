@@ -43,20 +43,25 @@ class Enemy {
         return this.y < 0;
     }
 
-    hasHitItem(){
-        return (this.x + this.w >= platform.x && this.x <= platform.x + platform.w) && (this.y + this.h >= platform.y && this.y <= platform.y + platform.h);
+    hasHitItem(item){
+        return ((this.x + this.w) >= item.x && this.x <= (item.x + item.w)) && ((this.y + this.h) >= item.y && this.y <= (item.y + item.h));
     }
 
     hasHitPlatform(){
-        this.hasHitItem(platform);
+        return this.hasHitItem(platform);
     }
 
     hasCollided(){
         var self = true;
         var collided = false;
+        platforms.forEach(function(platform, i){
         if(self.hasHitPlatform(platform)){
-
+            delete enemies[i];
+            collided = true;
         }
+    });
+    platforms = platforms.filter(item => item !== undefined);
+    return collided;
     }
 
 }

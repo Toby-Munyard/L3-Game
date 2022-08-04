@@ -13,10 +13,12 @@
     <script>
         var canvas;
         var canvasContext;
+        var imageAssets;
 
         window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
+            imageAssets = loadImgAssets();
 
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
@@ -29,6 +31,7 @@
         var gameWin = false;
         var stageNumber = 1;
         var health = 3;
+        var score = 0;
         var touchingPlatform = false;
         var Background1 = new Image();
         Background1.src = 'images/Background.png';
@@ -141,6 +144,18 @@
             canvasContext.drawImage(src, x, y, w, h);
         }; // end func this is how images are imported
 
+        function loadImgAssets() {
+            imgs = {};
+
+            imgs.coin = new Image();
+            imgs.coin.src = 'images/coinSpriteSheet.png'
+
+            return imgs;
+        }
+
+        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+            canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+        }
         // function enemyMove() {
 
         //     enemy.y += enemy.ySpeed;
@@ -193,7 +208,7 @@
         Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'brown');
 
             platforms.push(platform);
-        }
+        }; // end func makes 
 
         // function PlatformCollision() {
         //     if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
@@ -211,21 +226,22 @@
                 player.ySpeed = 0;
                 console.log('stop')
             }
-        }
+        }; // end func stops the player from moving when touching a platform
 
         function bottomCollision() {
             if (player.y >= bYpos - 20) {
                 player.y = bYpos - 20;
                 console.log('HES GONE')
             }
-        }
+        }; // end func stops the player from falling out of the bottom of the canvas
 
         function NewLevel() {
             if (player.x >= canvas.width) {
                 stageNumber++;
                 console.log('Stage: ' + stageNumber)
+                makePlatform();
             }
-        }
+        }; //end func changes the stageHumber each time the player reaches the far right of the canvas which allows the changeStyle function to then change the background
 
         function changeStyle() {
             if (stageNumber == 1) {
@@ -248,7 +264,7 @@
                 drawImg(Background5, 0, 0, canvas.width, canvas.height);
                 drawImg(Stage5Bottom, bXpos, bYpos, canvas.width, 80);
             }
-        }
+        }; // end func changes the bottom and background of the canvas depending on the stage number
 
         function GameEnd() {
             if (health <= 0) {
@@ -257,7 +273,7 @@
             if (stageNumber >= 6) {
                 gameWin = true;
             }
-        }
+        }; // end func detects when health is below 0 or stageNumber is above or equal to 6 and ends the game accordingly
 
         function keyPressed(evt) {
             if (evt.keyCode == LEFT_KEY) {
@@ -275,7 +291,7 @@
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPressed = true;
             }
-        }
+        }; // end func detects key being pressed
 
         function keyReleased(evt) {
             if (evt.keyCode == LEFT_KEY) {
@@ -293,10 +309,11 @@
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPressed = false;
             }
-        }
+        }; //end func detects key press being released
 
         function mainloop() {
             if (gameRun) {
+                drawSprite(imageAssets.coin, 0, 0, 105, 47, 50, 50, 45, 47);
                 // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
                 // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
                 // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
@@ -314,7 +331,6 @@
                 };
 
                
-
                 player.move();
                 player.collide();
                 playerStop();
@@ -329,13 +345,17 @@
                 makePlatform();
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
-                colorText('Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+                colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {
                         enemy.draw();
                         enemy.move();
                         enemy.hit();
+
+                        if(enemy.outOfBounds() || enemy.hasCollided){
+                            // enemy.y = 0 - enemy.E_SIZE;
+                        }
                     });
                 }
 
@@ -350,22 +370,24 @@
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
                 colorText(userName + ' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
-                colorText('Click the reload page button to try and win!', 50, 110, '20px Arial', 'red');
+                colorText('You lost with a score of ' + score, 50, 110, '20px Arial', 'red');
+                colorText('Click the reload page button to try and win!', 50, 140, '20px Arial', 'red');
             };
             if (gameWin) {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
                 colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'green');
-                colorText('Click the reload page button to play again!', 50, 110, '20px Arial', 'green');
+                colorText('You finished with a score of ' + score, 50, 110, '20px Arial', 'green');
+                colorText('Click the reload page button to play again!', 50, 140, '20px Arial', 'green');
             };
 
-        };
+        }; // end func mainloop contains and runs all other functions in the code
 
         function colorText(msg, x, y, f, c) {
             canvasContext.fillStyle = c;
             canvasContext.font = f;
             canvasContext.fillText(msg, x, y);
-        }
+        }; // end func draws text for the canvas
 
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
