@@ -239,7 +239,7 @@
             if (player.x >= canvas.width) {
                 stageNumber++;
                 console.log('Stage: ' + stageNumber)
-                makePlatform();
+                return makePlatform();
             }
         }; //end func changes the stageHumber each time the player reaches the far right of the canvas which allows the changeStyle function to then change the background
 
@@ -313,7 +313,7 @@
 
         function mainloop() {
             if (gameRun) {
-                drawSprite(imageAssets.coin, 0, 0, 105, 47, 50, 50, 45, 47);
+                drawSprite(imageAssets.coin, 0, 0, 105, 200, 300, 400, 45, 47);
                 // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
                 // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
                 // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
