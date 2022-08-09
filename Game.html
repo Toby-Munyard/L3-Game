@@ -11,14 +11,12 @@
 <body>
     <canvas id="gameCanvas" width="1000" height="600"></canvas>
     <script>
-        var canvas;
-        var canvasContext;
-        var imageAssets;
+        var canvas, canvasContext, imageAssests;
 
         window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
-            imageAssets = loadImgAssets();
+            imageAssests = loadImgAssests();
 
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
@@ -144,18 +142,19 @@
             canvasContext.drawImage(src, x, y, w, h);
         }; // end func this is how images are imported
 
-        function loadImgAssets() {
+        function loadImgAssests() {
             imgs = {};
 
             imgs.coin = new Image();
             imgs.coin.src = 'images/coinSpriteSheet.png'
 
             return imgs;
-        }
+        }// end func holds information relating to sprite animations
 
         function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
-        }
+        }// end func this is how sprites are imported
+
         // function enemyMove() {
 
         //     enemy.y += enemy.ySpeed;
@@ -193,7 +192,7 @@
             Enemy(eXpos, eYpos, E_SIZE, E_SIZE, 'white', eXspeed, eYspeed);
 
             enemies.push(enemy);
-        }
+        } // end func makes enemies spawn at random positions, speeds etc. lower player 'health' when hit
 
         function makePlatform() {
             var platformPos = Math.floor(Math.random() * 7) + 1;
@@ -205,10 +204,10 @@
             platformCounter++
 
             var platform = new
-        Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'brown');
+        Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'red');
 
             platforms.push(platform);
-        }; // end func makes 
+        }; // end func makes pickups for the player to pick up which increase 'score'
 
         // function PlatformCollision() {
         //     if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
@@ -313,7 +312,7 @@
 
         function mainloop() {
             if (gameRun) {
-                drawSprite(imageAssets.coin, 0, 0, 105, 200, 300, 400, 45, 47);
+                // drawSprite(imageAssests.coin, platforms.platformXpos, platforms.platformYpos, platforms.PLATFORM_SIZE, platforms.PLATFORM_SIZE, 42, 43, 45, 47);
                 // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
                 // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
                 // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
@@ -346,6 +345,7 @@
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+                drawSprite(imageAssests.coin, 0, 0, 445, 447, 250, 250, 100, 100);
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {
