@@ -12,12 +12,12 @@ class Platform {
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     }
 
-    hit(){
-        if(this.x + this.w > player.x && this.x < player.x + 
-            player.w && this.y + this.h > player.y && this.y < player.y + player.h){
-                this.y = 0 - this.h;
-                score++
-                console.log("Score: " + score);
+    hit() {
+        if (this.x + this.w > player.x && this.x < player.x +
+            player.w && this.y + this.h > player.y && this.y < player.y + player.h) {
+            this.y = 0 - this.h;
+            score++
+            console.log("Score: " + score);
         }
     }
 }
