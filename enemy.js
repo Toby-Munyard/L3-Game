@@ -1,17 +1,20 @@
 class Enemy {
-    constructor(x, y, h, w, c, xSpeed, ySpeed) {
+    constructor(x, y, h, w, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.colour = c;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+
+        const ENEMYIMG = new Image();
+        ENEMYIMG.src = 'images/StarSprite.png';
+        document.body.appendChild(ENEMYIMG);
+        this.src = ENEMYIMG;
     }
 
     draw() {
-        canvasContext.fillStyle = this.colour;
-        canvasContext.fillRect(this.x, this.y, this.w, this.h);
+        canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
     }
 
     move() {
@@ -63,5 +66,4 @@ class Enemy {
         platforms = platforms.filter(item => item !== undefined);
         return collided;
     }
-
 }

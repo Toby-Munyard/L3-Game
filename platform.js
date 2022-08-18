@@ -5,11 +5,15 @@ class Platform {
         this.w = w;
         this.h = h;
         this.c = c;
+
+        const COINIMG = new Image();
+        COINIMG.src = 'images/coinSpriteSheet.png';
+        document.body.appendChild(COINIMG);
+        this.src = COINIMG;
     }
 
     draw() {
-        canvasContext.fillStyle = this.c;
-        canvasContext.fillRect(this.x, this.y, this.w, this.h);
+        canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
     }
 
     hit() {
