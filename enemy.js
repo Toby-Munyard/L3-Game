@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(x, y, h, w, xSpeed, ySpeed) {
+    constructor(ENEMYIMG, x, y, h, w, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -7,15 +7,15 @@ class Enemy {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
 
-        const ENEMYIMG = new Image();
+        ENEMYIMG = new Image();
         ENEMYIMG.src = 'images/StarSprite.png';
-        document.body.appendChild(ENEMYIMG);
         this.src = ENEMYIMG;
     }
 
     draw() {
         canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
     }
+
 
     move() {
         this.y += this.ySpeed;

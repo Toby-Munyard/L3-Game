@@ -213,6 +213,8 @@
         // } //end func moves enemies and respawns them at the top after they hit the player
 
         function makeEnemy() {
+            ENEMYIMG = [];
+            ENEMYIMG.src = [];
             var ePos = Math.floor(Math.random() * 7) + 1;
             const E_SIZE = 20;
             const gap = 30;
@@ -223,8 +225,10 @@
 
             enemyCounter++
 
+            
+
             var enemy = new
-            Enemy(eXpos, eYpos, E_SIZE, E_SIZE, eXspeed, eYspeed);
+            Enemy(ENEMYIMG, eXpos, eYpos, E_SIZE, E_SIZE, eXspeed, eYspeed);
 
             enemies.push(enemy);
         } // end func makes enemies spawn at random positions, speeds etc. lower player 'health' when hit
@@ -249,7 +253,7 @@
             platforms.forEach(function (platform, i) {
                 drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
             });
-        } //end func basic creation of the fruit
+        } //end func basic creation of the coins
 
         // function PlatformCollision() {
         //     if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
@@ -381,7 +385,7 @@
                 NewLevel();
                 changeStyle();
                 player.draw();
-                enemies.push();
+                // enemies.push();
                 makeEnemy();
                 makePlatform();
                 coinAnimation();
@@ -396,6 +400,7 @@
                         enemy.draw();
                         enemy.move();
                         enemy.hit();
+                        enemies.push();
 
                         if (enemy.outOfBounds() || enemy.hasCollided) {
                             // enemy.y = 0 - enemy.E_SIZE;
@@ -405,8 +410,11 @@
 
                 if (platforms.length > 0) {
                     platforms.forEach(function (platform, i) {
-                        platform.draw();
+                        // platform.draw();
                         platform.hit();
+                        platform.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
+                        platform.loadImgAssests();
+                        platform.coinAnimation();
                     });
                 }
 
