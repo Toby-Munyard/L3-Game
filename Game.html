@@ -260,6 +260,17 @@
             });
         } //end func basic creation of the coins
 
+        function CoinHit() {
+            platforms.forEach(function (platform) {
+        if (platform.platformXpos + COIN_WIDTH > player.x && platform.platformXpos < player.x +
+            player.w && platform.platformYpos + COIN_HEIGHT > player.y && platform.platformYpos < player.y + player.h) {
+            platform.platformYpos = 0 - COIN_HEIGHT;
+            score++
+            console.log("Score: " + score);
+        }
+    });
+    }
+
         // function PlatformCollision() {
         //     if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
         //         PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
@@ -395,10 +406,11 @@
                 makePlatform();
                 coinAnimation();
                 drawCoins();
+                CoinHit();
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
-                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
+                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {
