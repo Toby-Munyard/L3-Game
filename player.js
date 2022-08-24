@@ -1,17 +1,19 @@
 class Player {
-    constructor(x, y, h, w, c, xSpeed, ySpeed) {
+    constructor(PLAYERIMG, x, y, h, w, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.c = c;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+
+        PLAYERIMG = new Image();
+        PLAYERIMG.src = 'images/RainbowStar.png';
+        this.src = PLAYERIMG;
     }
 
     draw() {
-        canvasContext.fillStyle = this.c;
-        canvasContext.fillRect(this.x, this.y, this.w, this.h);
+        canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
     }
 
     collide() {

@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(ENEMYIMG, x, y, h, w, xSpeed, ySpeed) {
+    constructor(ENEMYIMG, x, y, w, h, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;

@@ -65,7 +65,9 @@
         var pYpos = 0;
         var pXSpeed = 5;
         var pYSpeed = 5;
-        const P_SIZE = 20;
+        const P_SIZE = 40;
+        PLAYERIMG = [];
+        PLAYERIMG.src = [];
         var pSPRITE = new Image();
         pSPRITE.source = 'images/SpriteSheet.png';
 
@@ -108,6 +110,8 @@
         const COIN_HEIGHT = 300;
         var coinXpos = 0;
         var coinYpos = 0;
+        const COIN_ACTUAL_WIDTH = 60;
+        const COIN_ACTUAL_HEIGHT = 80;
 
         var coinSpriteArray = [];
         const COIN_SPRITES = 6;
@@ -128,7 +132,7 @@
         }
 
         var player = new
-        Player(pXpos, pYpos, P_SIZE, P_SIZE, 'green', pXSpeed, pYSpeed);
+        Player(PLAYERIMG, pXpos, pYpos, P_SIZE, P_SIZE, pXSpeed, pYSpeed);
 
         var userName = '';
 
@@ -256,15 +260,15 @@
 
         function drawCoins() {
             platforms.forEach(function (platform, i) {
-                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, platform.platformXpos, platform.platformYpos, COIN_WIDTH, COIN_HEIGHT);
+                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, platform.platformXpos, platform.platformYpos, COIN_ACTUAL_WIDTH, COIN_ACTUAL_HEIGHT);
             });
         } //end func basic creation of the coins
 
         function CoinHit() {
             platforms.forEach(function (platform) {
-        if (platform.platformXpos + COIN_WIDTH > player.x && platform.platformXpos < player.x +
-            player.w && platform.platformYpos + COIN_HEIGHT > player.y && platform.platformYpos < player.y + player.h) {
-            platform.platformYpos = 0 - COIN_HEIGHT;
+        if (platform.platformXpos + COIN_ACTUAL_WIDTH > player.x && platform.platformXpos < player.x +
+            player.w && platform.platformYpos + COIN_ACTUAL_HEIGHT > player.y && platform.platformYpos < player.y + player.h) {
+            platform.platformYpos = 0 - COIN_ACTUAL_HEIGHT;
             score++
             console.log("Score: " + score);
         }
@@ -300,7 +304,8 @@
             if (player.x >= canvas.width) {
                 stageNumber++;
                 console.log('Stage: ' + stageNumber)
-                return makePlatform();
+                
+                return drawCoins();
             }
         }; //end func changes the stageHumber each time the player reaches the far right of the canvas which allows the changeStyle function to then change the background
 
@@ -410,7 +415,7 @@
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
-                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
+                // drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {
