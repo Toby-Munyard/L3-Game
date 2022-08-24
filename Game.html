@@ -242,16 +242,21 @@
 
             platformCounter++
 
-            var platform = new
-            Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'red');
+            // var platform = new
+            // Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'red');
             
+            var platform = {
+                platformXpos: platformXpos,
+                platformYpos: platformYpos,
+                PLATFORM_SIZE: PLATFORM_SIZE
+            }; //coin private vars
 
             platforms.push(platform);
         }; // end func makes pickups for the player to pick up which increase 'score'
 
         function drawCoins() {
             platforms.forEach(function (platform, i) {
-                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
+                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, platform.platformXpos, platform.platformYpos, COIN_WIDTH, COIN_HEIGHT);
             });
         } //end func basic creation of the coins
 
@@ -408,15 +413,15 @@
                     });
                 }
 
-                if (platforms.length > 0) {
-                    platforms.forEach(function (platform, i) {
-                        // platform.draw();
-                        platform.hit();
-                        platform.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
-                        platform.loadImgAssests();
-                        platform.coinAnimation();
-                    });
-                }
+                // if (platforms.length > 0) {
+                //     platforms.forEach(function (platform, i) {
+                //         // platform.draw();
+                //         platform.hit();
+                //         platform.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
+                //         platform.loadImgAssests();
+                //         platform.coinAnimation();
+                //     });
+                // }
 
             } else {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
