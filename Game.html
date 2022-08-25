@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="images/StarSprite.png">
     <script src="player.js"></script>
     <script src="enemy.js"></script>
-    <script src="platform.js"></script>
+    <script src="coin.js"></script>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
         var stageNumber = 1;
         var health = 3;
         var score = 0;
-        var touchingPlatform = false;
+        var touchingcoin = false;
         var Background1 = new Image();
         Background1.src = 'images/Background.png';
         var Background2 = new Image();
@@ -90,9 +90,9 @@
         const SPACE_KEY = 32;
 
         //platfrom vars
-        var platforms = [];
-        var totalPlatforms = 5;
-        var platformCounter = 0;
+        var coins = [];
+        var totalcoins = 5;
+        var coinCounter = 0;
         var coinXsource = 0;
         var coinYsource = 0;
         const COIN_WIDTH = 200;
@@ -204,38 +204,38 @@
             enemies.push(enemy);
         } // end func makes enemies spawn at random positions, speeds etc. lower player 'health' when hit
 
-        function makePlatform() {
-            var platformPos = Math.floor(Math.random() * 7) + 1;
-            const PLATFORM_SIZE = 20;
-            const platformGap = 30;
-            var platformXpos = enemyCounter * PLATFORM_SIZE + platformGap * platformCounter;
-            var platformYpos = Math.floor(Math.random() * (500 - 10) + max);
+        function makecoin() {
+            var coinPos = Math.floor(Math.random() * 7) + 1;
+            const COIN_SIZE = 20;
+            const COIN_GAP = 30;
+            var coinXpos = enemyCounter * COIN_SIZE + COIN_GAP * coinCounter;
+            var coinYpos = Math.floor(Math.random() * (500 - 10) + max);
 
-            platformCounter++
+            coinCounter++
 
-            // var platform = new
-            // Platform(platformXpos, platformYpos, PLATFORM_SIZE, PLATFORM_SIZE, 'red');
+            // var coin = new
+            // coin(coinXpos, coinYpos, coin_SIZE, coin_SIZE, 'red');
             
-            var platform = {
-                platformXpos: platformXpos,
-                platformYpos: platformYpos,
-                PLATFORM_SIZE: PLATFORM_SIZE
+            var coin = {
+                coinXpos: coinXpos,
+                coinYpos: coinYpos,
+                COIN_SIZE: COIN_SIZE
             }; //coin private vars
 
-            platforms.push(platform);
+            coins.push(coin);
         }; // end func makes pickups for the player to pick up which increase 'score'
 
         function drawCoins() {
-            platforms.forEach(function (platform, i) {
-                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, platform.platformXpos, platform.platformYpos, COIN_ACTUAL_WIDTH, COIN_ACTUAL_HEIGHT);
+            coins.forEach(function (coin, i) {
+                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coin.coinXpos, coin.coinYpos, COIN_ACTUAL_WIDTH, COIN_ACTUAL_HEIGHT);
             });
         } //end func basic creation of the coins
 
         function CoinHit() {
-            platforms.forEach(function (platform) {
-        if (platform.platformXpos + COIN_ACTUAL_WIDTH > player.x && platform.platformXpos < player.x +
-            player.w && platform.platformYpos + COIN_ACTUAL_HEIGHT > player.y && platform.platformYpos < player.y + player.h) {
-            platform.platformYpos = 0 - COIN_ACTUAL_HEIGHT;
+            coins.forEach(function (coin) {
+        if (coin.coinXpos + COIN_ACTUAL_WIDTH > player.x && coin.coinXpos < player.x +
+            player.w && coin.coinYpos + COIN_ACTUAL_HEIGHT > player.y && coin.coinYpos < player.y + player.h) {
+            coin.coinYpos = 0 - COIN_ACTUAL_HEIGHT;
             score++
             console.log("Score: " + score);
         }
@@ -243,11 +243,11 @@
     }
 
         function playerStop() {
-            if (touchingPlatform) {
+            if (touchingcoin) {
                 player.ySpeed = 0;
                 console.log('stop')
             }
-        }; // end func stops the player from moving when touching a platform
+        }; // end func stops the player from moving when touching a coin
 
         function bottomCollision() {
             if (player.y >= bYpos - 20) {
@@ -340,8 +340,8 @@
                     for (i = 0; i < totalEnemies; i++) {
                         makeEnemy();
                     }
-                    for (i = 0; i < totalPlatforms; i++) {
-                        makePlatform();
+                    for (i = 0; i < totalcoins; i++) {
+                        makecoin();
                     }
                     setUp = false;
                 };
@@ -358,7 +358,7 @@
                 player.draw();
                 // enemies.push();
                 makeEnemy();
-                makePlatform();
+                makecoin();
                 coinAnimation();
                 drawCoins();
                 CoinHit();
@@ -381,13 +381,13 @@
                     });
                 }
 
-                // if (platforms.length > 0) {
-                //     platforms.forEach(function (platform, i) {
-                //         // platform.draw();
-                //         platform.hit();
-                //         platform.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
-                //         platform.loadImgAssests();
-                //         platform.coinAnimation();
+                // if (coins.length > 0) {
+                //     coins.forEach(function (coin, i) {
+                //         // coin.draw();
+                //         coin.hit();
+                //         coin.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
+                //         coin.loadImgAssests();
+                //         coin.coinAnimation();
                 //     });
                 // }
 
