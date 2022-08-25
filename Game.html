@@ -68,19 +68,12 @@
         const P_SIZE = 40;
         PLAYERIMG = [];
         PLAYERIMG.src = [];
-        var pSPRITE = new Image();
-        pSPRITE.source = 'images/SpriteSheet.png';
 
         //enemy vars
         var enemies = [];
         var setUp = true;
         var totalEnemies = 5;
         var enemyCounter = 0;
-        // var eXpos = 200;
-        // var eYpos = 300;
-        // var eXSpeed = 5;
-        // var eYSpeed = 5;
-        // const E_SIZE = 20;
 
         //movement vars
         var leftKeyPressed = false;
@@ -100,10 +93,6 @@
         var platforms = [];
         var totalPlatforms = 5;
         var platformCounter = 0;
-        // var PlatformXPos = 500;
-        // var PlatformYPos = 300;
-        // var PlatformXWidth = 100;
-        // var PlatformYHeight = 200;
         var coinXsource = 0;
         var coinYsource = 0;
         const COIN_WIDTH = 200;
@@ -194,28 +183,6 @@
             }
         }
 
-        // function enemyMove() {
-
-        //     enemy.y += enemy.ySpeed;
-
-        //     if (enemy.y > canvas.height) { // enemy out of bottom of canvas 
-        //         enemy.y = 0 - enemy.w * enemy.h;
-        //         enemy.x = Math.floor(Math.random() * (canvas.width - enemy.w * enemy.h));
-        //         enemy.ySpeed = Math.floor(Math.random() * (12 - 4) + 4);
-        //     }
-
-        //     if (enemy.y + E_SIZE > player.y && enemy.y < player.y + P_SIZE && enemy.x + E_SIZE > player.x && enemy.x <
-        //         player.x + P_SIZE) {
-        //         // player respawns to center of canvas after enemy collides with player
-        //         enemy.x = Math.floor(Math.random() * (canvas.width - E_SIZE));
-        //         enemy.y = canvas.height + 100;
-        //         player.x = 0;
-        //         player.y = canvas.height - 100;
-        //         health--;
-        //         console.log('Health:' + health);
-        //     }
-        // } //end func moves enemies and respawns them at the top after they hit the player
-
         function makeEnemy() {
             ENEMYIMG = [];
             ENEMYIMG.src = [];
@@ -274,17 +241,6 @@
         }
     });
     }
-
-        // function PlatformCollision() {
-        //     if (platform.y + PlatformYHeight > player.y && platform.y < player.y + P_SIZE && platform.x +
-        //         PlatformXWidth > player.x && platform.x < player.x + P_SIZE) {
-        //         // player stops moving if touching platform 
-        //         touchingPlatform = true;
-        //         player.y = platform.y - P_SIZE;
-        //         player.x = platform.x - P_SIZE;
-        //         console.log('collision')
-        //     }
-        // }
 
         function playerStop() {
             if (touchingPlatform) {
@@ -379,12 +335,6 @@
 
         function mainloop() {
             if (gameRun) {
-                // drawSprite(imageAssests.coin, platforms.platformXpos, platforms.platformYpos, platforms.PLATFORM_SIZE, platforms.PLATFORM_SIZE, 42, 43, 45, 47);
-                // drawImg(Background1, 0, 0, BackgroundWidth, BackgroundHeight,); //background
-                // drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80); //ground
-                // colorRect(PlatformXPos, PlatformYPos, PlatformXWidth, PlatformYHeight, 'brown') //Platform
-                // colorRect(eXpos, eYpos, E_SIZE, E_SIZE, 'white'); //enemy
-                // colorRect(pXpos,pYpos,P_SIZE,P_SIZE,'white'); //player
 
                 if (setUp) {
                     for (i = 0; i < totalEnemies; i++) {
@@ -414,7 +364,8 @@
                 CoinHit();
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
-                colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 60, '20px Arial', 'Lime')
+                colorText(userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime')
+                colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 80, '20px Arial', 'Lime')
                 // drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
 
                 if (enemies.length > 0) {
