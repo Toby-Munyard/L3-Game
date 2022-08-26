@@ -10,14 +10,14 @@ class Player {
         PLAYERIMG = new Image();
         PLAYERIMG.src = 'images/RainbowStar.png';
         this.src = PLAYERIMG;
-    }
+    }//basic creation of the player
 
     draw() {
         canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
-    }
+    } //draws the player on the canvas
 
     collide() {
-        if (this.y > canvas.height) {
+        if (this.y >= canvas.height) {
             this.y -= this.ySpeed;
         }
     }
@@ -39,11 +39,9 @@ class Player {
         }
         if (upKeyPressed) {
             this.y -= this.ySpeed + 30;
-            if (this.y < 0 || this.y > canvas.height) {
-                this.yspeed = this.yspeed * -1;
-            } else if (this.y < canvas.height || this.y > canvas.height) {
-                this.yspeed = this.yspeed;
-            }
+            if (this.y >= canvas.height) {
+                this.y = canvas.height - this.y;
+            } 
         }
         if (downKeyPressed) {
             this.y += this.ySpeed;
@@ -51,5 +49,5 @@ class Player {
                 this.yspeed = this.yspeed;
             }
         }
-    }
+    } //moves the player according to what arrow key is pressed
 }

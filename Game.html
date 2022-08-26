@@ -127,7 +127,7 @@
 
         while (userName == '' || userName == null) {
             userName = prompt('what is your name?');
-        };
+        }; //only lets player play the game if they input a name, cannot be null
 
         var difficulty = 'easy';
         var pass = false;
@@ -153,7 +153,7 @@
                 min = 10;
                 max = 12;
             }
-        };
+        }; //only accepts easy, medium or hard and changes amount of enemies as well as their speed accordingly
 
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h);
@@ -188,8 +188,8 @@
             ENEMYIMG.src = [];
             var ePos = Math.floor(Math.random() * 7) + 1;
             const E_SIZE = 20;
-            const gap = 30;
-            var eXpos = enemyCounter * E_SIZE + gap * enemyCounter;
+            const E_GAP = 30;
+            var eXpos = enemyCounter * E_SIZE + E_GAP * enemyCounter;
             var eYpos = 0 - E_SIZE;
             var eXspeed = Math.floor(Math.random() * (max - min) + max);
             var eYspeed = Math.floor(Math.random() * (max - min) + max);
@@ -240,7 +240,7 @@
             console.log("Score: " + score);
         }
     });
-    }
+    }; //end func controls collision between coin array and the player
 
         function playerStop() {
             if (touchingcoin) {
@@ -397,14 +397,14 @@
                 colorText(userName + ' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
                 colorText('You lost with a score of ' + score, 50, 110, '20px Arial', 'red');
                 colorText('Click the reload page button to try and win!', 50, 140, '20px Arial', 'red');
-            };
+            }; // loose screen for when health variable drops below 1
             if (gameWin) {
                 colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
                 colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
                 colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'green');
                 colorText('You finished with a score of ' + score, 50, 110, '20px Arial', 'green');
                 colorText('Click the reload page button to play again!', 50, 140, '20px Arial', 'green');
-            };
+            }; // win screen for when player completes last stage
 
         }; // end func mainloop contains and runs all other functions in the code
 
