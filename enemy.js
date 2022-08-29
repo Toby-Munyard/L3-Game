@@ -10,11 +10,11 @@ class Enemy {
         ENEMYIMG = new Image();
         ENEMYIMG.src = 'images/StarSprite.png';
         this.src = ENEMYIMG;
-    }
+    }//basic creation of enemy
 
     draw() {
         canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
-    }
+    }//draws enemy on the canvas
 
 
     move() {
@@ -30,7 +30,7 @@ class Enemy {
             this.ySpeed = Math.floor(Math.random() * (6 - 3) + 2);
         }
 
-    }
+    }//allows the enemy to move around the canvas, also spawns them back above the canvas when past bottom
 
     hit() {
         if (this.x + this.w > player.x && this.x < player.x +
