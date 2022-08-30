@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(ENEMYIMG, x, y, w, h, xSpeed, ySpeed) {
+    constructor(ENEMY_IMG, x, y, w, h, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -7,9 +7,9 @@ class Enemy {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
 
-        ENEMYIMG = new Image();
-        ENEMYIMG.src = 'images/StarSprite.png';
-        this.src = ENEMYIMG;
+        ENEMY_IMG = new Image();
+        ENEMY_IMG.src = 'images/StarSprite.png';
+        this.src = ENEMY_IMG;
     }//basic creation of enemy
 
     draw() {

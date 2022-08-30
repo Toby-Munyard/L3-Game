@@ -1,5 +1,5 @@
 class Player {
-    constructor(PLAYERIMG, x, y, h, w, xSpeed, ySpeed) {
+    constructor(PLAYER_IMG, x, y, h, w, xSpeed, ySpeed) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -7,9 +7,9 @@ class Player {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
 
-        PLAYERIMG = new Image();
-        PLAYERIMG.src = 'images/RainbowStar.png';
-        this.src = PLAYERIMG;
+        PLAYER_IMG = new Image();
+        PLAYER_IMG.src = 'images/RainbowStar.png';
+        this.src = PLAYER_IMG;
     }//basic creation of the player
 
     draw() {
