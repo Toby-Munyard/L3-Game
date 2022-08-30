@@ -31,26 +31,26 @@
         var health = 3;
         var score = 0;
         var touchingcoin = false;
-        var Background1 = new Image();
-        Background1.src = 'images/Background.png';
-        var Background2 = new Image();
-        Background2.src = 'images/Background2.png';
-        var Background3 = new Image();
-        Background3.src = 'images/Background3.jpg';
-        var Background4 = new Image();
-        Background4.src = 'images/Background4.png';
-        var Background5 = new Image();
-        Background5.src = 'images/Background5.jpg';
-        var Stage1Bottom = new Image();
-        Stage1Bottom.src = 'images/Stage1Bottom.png';
-        var Stage2Bottom = new Image();
-        Stage2Bottom.src = 'images/Stage2Bottom.png';
-        var Stage3Bottom = new Image();
-        Stage3Bottom.src = 'images/Stage3Bottom.png';
-        var Stage4Bottom = new Image();
-        Stage4Bottom.src = 'images/Stage4Bottom.png';
-        var Stage5Bottom = new Image();
-        Stage5Bottom.src = 'images/Stage5Bottom.png';
+        const BACKGROUND_1 = new Image();
+        BACKGROUND_1.src = 'images/Background.png';
+        const BACKGROUND_2 = new Image();
+        BACKGROUND_2.src = 'images/Background2.png';
+        const BACKGROUND_3 = new Image();
+        BACKGROUND_3.src = 'images/Background3.jpg';
+        const BACKGROUND_4 = new Image();
+        BACKGROUND_4.src = 'images/Background4.png';
+        const BACKGROUND_5 = new Image();
+        BACKGROUND_5.src = 'images/Background5.jpg';
+        const STAGE_1_BOTTOM = new Image();
+        STAGE_1_BOTTOM.src = 'images/Stage1Bottom.png';
+        const STAGE_2_BOTTOM = new Image();
+        STAGE_2_BOTTOM.src = 'images/Stage2Bottom.png';
+        const STAGE_3_BOTTOM = new Image();
+        STAGE_3_BOTTOM.src = 'images/Stage3Bottom.png';
+        const STAGE_4_BOTTOM = new Image();
+        STAGE_4_BOTTOM.src = 'images/Stage4Bottom.png';
+        const STAGE_5_BOTTOM = new Image();
+        STAGE_5_BOTTOM.src = 'images/Stage5Bottom.png';
 
         //bottom of game
         var bXpos = 0;
@@ -66,8 +66,8 @@
         var pXSpeed = 5;
         var pYSpeed = 5;
         const P_SIZE = 40;
-        PLAYERIMG = [];
-        PLAYERIMG.src = [];
+        PLAYER_IMG = [];
+        PLAYER_IMG.src = [];
 
         //enemy vars
         var enemies = [];
@@ -121,7 +121,7 @@
         }
 
         var player = new
-        Player(PLAYERIMG, pXpos, pYpos, P_SIZE, P_SIZE, pXSpeed, pYSpeed);
+        Player(PLAYER_IMG, pXpos, pYpos, P_SIZE, P_SIZE, pXSpeed, pYSpeed);
 
         var userName = '';
 
@@ -185,8 +185,8 @@
         }
 
         function makeEnemy() {
-            ENEMYIMG = [];
-            ENEMYIMG.src = [];
+            ENEMY_IMG = [];
+            ENEMY_IMG.src = [];
             var ePos = Math.floor(Math.random() * 7) + 1;
             const E_SIZE = 20;
             const E_GAP = 30;
@@ -200,7 +200,7 @@
             
 
             var enemy = new
-            Enemy(ENEMYIMG, eXpos, eYpos, E_SIZE, E_SIZE, eXspeed, eYspeed);
+            Enemy(ENEMY_IMG, eXpos, eYpos, E_SIZE, E_SIZE, eXspeed, eYspeed);
 
             enemies.push(enemy);
         } // end func makes enemies spawn at random positions, speeds etc. lower player 'health' when hit
@@ -262,7 +262,7 @@
                 player.y = canvas.height - 580;
                 console.log('TOP HIT')
             }
-        };
+        }; // end func stops the player from flying out the top of the canvas
 
         function NewLevel() {
             if (player.x >= canvas.width) {
@@ -275,24 +275,24 @@
 
         function changeStyle() {
             if (stageNumber == 1) {
-                drawImg(Background1, 0, 0, canvas.width, canvas.height);
-                drawImg(Stage1Bottom, bXpos, bYpos, canvas.width, 80);
+                drawImg(BACKGROUND_1, 0, 0, canvas.width, canvas.height);
+                drawImg(STAGE_1_BOTTOM, bXpos, bYpos, canvas.width, 80);
             }
             if (stageNumber == 2) {
-                drawImg(Background2, 0, 0, canvas.width, canvas.height);
-                drawImg(Stage2Bottom, bXpos, bYpos, canvas.width, 80);
+                drawImg(BACKGROUND_2, 0, 0, canvas.width, canvas.height);
+                drawImg(STAGE_2_BOTTOM, bXpos, bYpos, canvas.width, 80);
             }
             if (stageNumber == 3) {
-                drawImg(Background3, 0, 0, canvas.width, canvas.height);
-                drawImg(Stage3Bottom, bXpos, bYpos, canvas.width, 80);
+                drawImg(BACKGROUND_3, 0, 0, canvas.width, canvas.height);
+                drawImg(STAGE_3_BOTTOM, bXpos, bYpos, canvas.width, 80);
             }
             if (stageNumber == 4) {
-                drawImg(Background4, 0, 0, canvas.width, canvas.height);
-                drawImg(Stage4Bottom, bXpos, bYpos, canvas.width, 80);
+                drawImg(BACKGROUND_4, 0, 0, canvas.width, canvas.height);
+                drawImg(STAGE_4_BOTTOM, bXpos, bYpos, canvas.width, 80);
             }
             if (stageNumber == 5) {
-                drawImg(Background5, 0, 0, canvas.width, canvas.height);
-                drawImg(Stage5Bottom, bXpos, bYpos, canvas.width, 80);
+                drawImg(BACKGROUND_5, 0, 0, canvas.width, canvas.height);
+                drawImg(STAGE_5_BOTTOM, bXpos, bYpos, canvas.width, 80);
             }
         }; // end func changes the bottom and background of the canvas depending on the stage number
 
