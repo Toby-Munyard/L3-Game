@@ -109,12 +109,12 @@
         var coinSpriteSheetCols = 0;
         var aniFrameRate = 0.1;
 
-        for(i=0; i < COIN_SPRITES; i++){
+        for (i = 0; i < COIN_SPRITES; i++) {
             coinSpriteArray[i] = new Array(2);
             coinSpriteArray[i][0] = COIN_WIDTH * (i % 6);
             // console.log(coinSpriteArray[i][0]);
 
-            if(i != 0 && i%6 == 0){
+            if (i != 0 && i % 6 == 0) {
                 coinSpriteSheetCols++;
             }
             coinSpriteArray[i][1] = COIN_WIDTH * coinSpriteSheetCols;
@@ -135,7 +135,9 @@
         var pass = false;
 
         while (pass == false) {
-            difficulty = prompt('What difficulty do you want?' + '                                                                     1: easy 2: medium 3: hard', '1');
+            difficulty = prompt('What difficulty do you want?' +
+                '                                                                     1: easy 2: medium 3: hard',
+                '1');
             difficulty = difficulty.toLowerCase(); //forces capitals to be lower case
             if (difficulty == '1' || difficulty == '2' || difficulty == '3') {
                 pass = true;
@@ -174,13 +176,13 @@
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
         } // end func this is how sprites are imported
 
-        function coinAnimation(){
+        function coinAnimation() {
             coinXsource = coinSpriteArray[Math.floor(coinSpriteNum)][0];
             coinYsource = coinSpriteArray[Math.floor(coinSpriteNum)][1];
 
-            coinSpriteNum+= aniFrameRate;
+            coinSpriteNum += aniFrameRate;
 
-            if(coinSpriteNum > 5){
+            if (coinSpriteNum > 5) {
                 coinSpriteNum = 0;
             }
         }
@@ -198,7 +200,7 @@
 
             enemyCounter++
 
-            
+
 
             var enemy = new
             Enemy(ENEMY_IMG, eXpos, eYpos, E_SIZE, E_SIZE, eXspeed, eYspeed);
@@ -217,7 +219,7 @@
 
             // var coin = new
             // coin(coinXpos, coinYpos, coin_SIZE, coin_SIZE, 'red');
-            
+
             var coin = {
                 coinXpos: coinXpos,
                 coinYpos: coinYpos,
@@ -229,20 +231,22 @@
 
         function drawCoins() {
             coins.forEach(function (coin, i) {
-                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coin.coinXpos, coin.coinYpos, COIN_ACTUAL_WIDTH, COIN_ACTUAL_HEIGHT);
+                drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coin.coinXpos,
+                    coin.coinYpos, COIN_ACTUAL_WIDTH, COIN_ACTUAL_HEIGHT);
             });
         } //end func basic creation of the coins
 
         function CoinHit() {
             coins.forEach(function (coin) {
-        if (coin.coinXpos + COIN_ACTUAL_WIDTH > player.x && coin.coinXpos < player.x +
-            player.w && coin.coinYpos + COIN_ACTUAL_HEIGHT > player.y && coin.coinYpos < player.y + player.h) {
-            coin.coinYpos = 0 - COIN_ACTUAL_HEIGHT;
-            score++
-            console.log("Score: " + score);
-        }
-    });
-    }; //end func controls collision between coin array and the player
+                if (coin.coinXpos + COIN_ACTUAL_WIDTH > player.x && coin.coinXpos < player.x +
+                    player.w && coin.coinYpos + COIN_ACTUAL_HEIGHT > player.y && coin.coinYpos < player.y +
+                    player.h) {
+                    coin.coinYpos = 0 - COIN_ACTUAL_HEIGHT;
+                    score++
+                    console.log("Score: " + score);
+                }
+            });
+        }; //end func controls collision between coin array and the player
 
         function playerStop() {
             if (touchingcoin) {
@@ -269,7 +273,7 @@
             if (player.x >= canvas.width) {
                 stageNumber++;
                 console.log('Stage: ' + stageNumber)
-                
+
                 return drawCoins();
             }
         }; //end func changes the stageHumber each time the player reaches the far right of the canvas which allows the changeStyle function to then change the background
