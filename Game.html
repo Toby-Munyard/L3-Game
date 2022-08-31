@@ -375,7 +375,7 @@
                 coinAnimation();
                 drawCoins();
                 CoinHit();
-                topCollision();
+                topCollision();  
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText(userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime')
@@ -406,18 +406,18 @@
                 // }
 
             } else {
-                colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
+                drawImg(BACKGROUND_3, 0, 0, BackgroundWidth, BackgroundHeight); //background
                 colorText('Game Over!', 50, 50, '20px Arial', 'red'); //game over text
                 colorText(userName + ' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
                 colorText('You lost with a score of ' + score, 50, 110, '20px Arial', 'red');
                 colorText('Click the reload page button to try and win!', 50, 140, '20px Arial', 'red');
             }; // loose screen for when health variable drops below 1
             if (gameWin) {
-                colorRect(0, 0, BackgroundWidth, BackgroundHeight, 'black'); //background
-                colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'green'); //game over text
-                colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'green');
-                colorText('You finished with a score of ' + score, 50, 110, '20px Arial', 'green');
-                colorText('Click the reload page button to play again!', 50, 140, '20px Arial', 'green');
+                drawImg(BACKGROUND_5, 0, 0, BackgroundWidth, BackgroundHeight); //background
+                colorText('CONGRATULATIONS ' + userName + ' YOU WIN!', 50, 50, '20px Arial', 'Lime'); //game over text
+                colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'Lime');
+                colorText('You finished with a score of ' + score, 50, 110, '20px Arial', 'Lime');
+                colorText('Click the reload page button to play again!', 50, 140, '20px Arial', 'Lime');
             }; // win screen for when player completes last stage
 
         }; // end func mainloop contains and runs all other functions in the code
