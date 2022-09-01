@@ -359,7 +359,6 @@
 
 
                 player.move();
-                player.collide();
                 GameEnd();
                 bottomCollision();
                 NewLevel();
@@ -371,13 +370,10 @@
                 drawCoins();
                 CoinHit();
                 topCollision();  
-                
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime', 'black')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText(userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 80, '20px Arial', 'Lime')
-                
-                // drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {

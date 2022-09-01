@@ -16,12 +16,6 @@ class Player {
         canvasContext.drawImage(this.src, this.x, this.y, this.w, this.h);
     } //draws the player on the canvas
 
-    collide() {
-        if (this.y >= canvas.height) {
-            this.y -= this.ySpeed;
-        }
-    }
-
     move() {
         var gravity = 20;
 
