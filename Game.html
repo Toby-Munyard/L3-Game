@@ -217,9 +217,6 @@
 
             coinCounter++
 
-            // var coin = new
-            // coin(coinXpos, coinYpos, coin_SIZE, coin_SIZE, 'red');
-
             var coin = {
                 coinXpos: coinXpos,
                 coinYpos: coinYpos,
@@ -338,12 +335,7 @@
                 spaceKeyPressed = false;
             }
         }; //end func detects key press being released
-        // <div class= "game"> 
-        //     <h1>userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime'</h1>
-        //     <h1>userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime'</h1>
-        //     <h1>userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime'</h1>
-        //     <h1>Run to the right! Arrow Keys to move! Dodge Those Enemies!</h1>
-        //     </div>
+        
         function mainloop() {
             if (gameRun) {
 
@@ -359,7 +351,6 @@
 
 
                 player.move();
-                player.collide();
                 GameEnd();
                 bottomCollision();
                 NewLevel();
@@ -371,13 +362,10 @@
                 drawCoins();
                 CoinHit();
                 topCollision();  
-                
                 colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime', 'black')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText(userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 80, '20px Arial', 'Lime')
-                
-                // drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {
@@ -385,22 +373,8 @@
                         enemy.move();
                         enemy.hit();
                         enemies.push();
-
-                        if (enemy.outOfBounds() || enemy.hasCollided) {
-                            // enemy.y = 0 - enemy.E_SIZE;
-                        }
                     });
                 }
-
-                // if (coins.length > 0) {
-                //     coins.forEach(function (coin, i) {
-                //         // coin.draw();
-                //         coin.hit();
-                //         coin.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
-                //         coin.loadImgAssests();
-                //         coin.coinAnimation();
-                //     });
-                // }
 
             } else {
                 drawImg(BACKGROUND_3, 0, 0, BackgroundWidth, BackgroundHeight); //background

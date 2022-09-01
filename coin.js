@@ -11,14 +11,4 @@ class Coin {
         canvasContext.fillStyle = this.c;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     } //draws coins on the canvas
-
-    hit() {
-        if (this.x + this.w > player.x && this.x < player.x +
-            player.w && this.y + this.h > player.y && this.y < player.y + player.h) {
-            this.y = 0 - this.h;
-            score++
-            console.log("Score: " + score);
-        }
-    } //collision between player and coins
-
 }

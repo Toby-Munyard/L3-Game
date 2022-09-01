@@ -41,29 +41,4 @@ class Enemy {
             this.y = 0 - this.h;
         }
     }
-
-    outOfBounds() {
-        return this.y < 0;
-    }
-
-    hasHitItem(item) {
-        return ((this.x + this.w) >= item.x && this.x <= (item.x + item.w)) && ((this.y + this.h) >= item.y && this.y <= (item.y + item.h));
-    }
-
-    hasHitPlatform() {
-        return this.hasHitItem(platform);
-    }
-
-    hasCollided() {
-        var self = true;
-        var collided = false;
-        platforms.forEach(function (platform, i) {
-            if (self.hasHitPlatform(platform)) {
-                delete enemies[i];
-                collided = true;
-            }
-        });
-        platforms = platforms.filter(item => item !== undefined);
-        return collided;
-    }
 }
