@@ -170,11 +170,11 @@
             imgs.coin.src = 'images/coinSpriteSheet.png'
 
             return imgs;
-        } // end func holds information relating to sprite animations
+        }; // end func holds information relating to sprite animations
 
         function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
-        } // end func this is how sprites are imported
+        }; // end func this is how sprites are imported
 
         function coinAnimation() {
             coinXsource = coinSpriteArray[Math.floor(coinSpriteNum)][0];
@@ -185,7 +185,7 @@
             if (coinSpriteNum > 5) {
                 coinSpriteNum = 0;
             }
-        }
+        };
 
         function makeEnemy() {
             ENEMY_IMG = [];
@@ -247,13 +247,6 @@
                 }
             });
         }; //end func controls collision between coin array and the player
-
-        function playerStop() {
-            if (touchingcoin) {
-                player.ySpeed = 0;
-                console.log('stop')
-            }
-        }; // end func stops the player from moving when touching a coin
 
         function bottomCollision() {
             if (player.y >= bYpos - 20) {
@@ -345,7 +338,12 @@
                 spaceKeyPressed = false;
             }
         }; //end func detects key press being released
-
+        // <div class= "game"> 
+        //     <h1>userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime'</h1>
+        //     <h1>userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime'</h1>
+        //     <h1>userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime'</h1>
+        //     <h1>Run to the right! Arrow Keys to move! Dodge Those Enemies!</h1>
+        //     </div>
         function mainloop() {
             if (gameRun) {
 
@@ -362,24 +360,23 @@
 
                 player.move();
                 player.collide();
-                playerStop();
                 GameEnd();
                 bottomCollision();
-                playerStop();
                 NewLevel();
                 changeStyle();
                 player.draw();
-                // enemies.push();
                 makeEnemy();
                 makecoin();
                 coinAnimation();
                 drawCoins();
                 CoinHit();
                 topCollision();  
-                colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime')
+                
+                colorText(userName + " is on stage " + stageNumber, 15, 20, '20px Arial', 'Lime', 'black')
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText(userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 80, '20px Arial', 'Lime')
+                
                 // drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT); //coin pickups
 
                 if (enemies.length > 0) {
