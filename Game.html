@@ -385,22 +385,8 @@
                         enemy.move();
                         enemy.hit();
                         enemies.push();
-
-                        if (enemy.outOfBounds() || enemy.hasCollided) {
-                            // enemy.y = 0 - enemy.E_SIZE;
-                        }
                     });
                 }
-
-                // if (coins.length > 0) {
-                //     coins.forEach(function (coin, i) {
-                //         // coin.draw();
-                //         coin.hit();
-                //         coin.drawSprite(imageAssests.coin, coinXsource, coinYsource, COIN_WIDTH, COIN_HEIGHT, coinXpos, coinYpos, COIN_WIDTH, COIN_HEIGHT);
-                //         coin.loadImgAssests();
-                //         coin.coinAnimation();
-                //     });
-                // }
 
             } else {
                 drawImg(BACKGROUND_3, 0, 0, BackgroundWidth, BackgroundHeight); //background
