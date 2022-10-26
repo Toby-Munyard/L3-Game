@@ -11,6 +11,23 @@
 
 <body>
     <canvas id="gameCanvas" width="1000" height="600"></canvas>
+
+    <audio id="BG_MUSIC">
+        <source src="Sounds/BGMUSIC.mp3">
+    </audio>
+    <audio id="COIN_PICKUP">
+        <source src="Sounds/CoinPickup.m4a">
+    </audio>
+    <audio id="GAME_OVER">
+        <source src="Sounds/GameOverSound.m4a">
+    </audio>
+    <audio id="DAMAGE">
+        <source src="Sounds/DAMAGE.m4a">
+    </audio>
+    <audio id="WIN_MUSIC">
+        <source src="Sounds/WIN_MUSIC.m4a">
+    </audio>
+
     <script>
         var canvas, canvasContext, imageAssests;
 
@@ -32,6 +49,8 @@
         var health = 3;
         var score = 0;
         var touchingcoin = false;
+
+        //art constants
         const BACKGROUND_1 = new Image();
         BACKGROUND_1.src = 'images/Background.png';
         const BACKGROUND_2 = new Image();
@@ -90,19 +109,22 @@
         const DOWN_KEY = 40;
         const SPACE_KEY = 32;
 
-        //platfrom vars
+        //coin vars
         var coins = [];
         var totalcoins = 5;
         var coinCounter = 0;
         var coinXsource = 0;
         var coinYsource = 0;
-        const COIN_WIDTH = 200;
-        const COIN_HEIGHT = 300;
         var coinXpos = 0;
         var coinYpos = 0;
+
+        //coin constants
+        const COIN_WIDTH = 200;
+        const COIN_HEIGHT = 300;
         const COIN_ACTUAL_WIDTH = 60;
         const COIN_ACTUAL_HEIGHT = 80;
 
+        //coin animation vars & constants
         var coinSpriteArray = [];
         const COIN_SPRITES = 6;
         var coinSpriteNum = 0;
@@ -128,7 +150,6 @@
 
         while (userName == '' || userName == null) {
             userName = prompt('What is your name?');
-            userName = userName.toLowerCase();
         }; //only lets player play the game if they input a name, cannot be null
 
         var difficulty = 'easy';
@@ -185,7 +206,7 @@
             if (coinSpriteNum > 5) {
                 coinSpriteNum = 0;
             }
-        };
+        }; // end func animates the coin sprite sheet and resets it when it reaches the end of the sprite sheet
 
         function makeEnemy() {
             ENEMY_IMG = [];
@@ -240,6 +261,9 @@
                     player.h) {
                     coin.coinYpos = 0 - COIN_ACTUAL_HEIGHT;
                     score++
+                    COIN_PICKUP.currentTime = 0.25;
+
+                    COIN_PICKUP.play();
                     console.log("Score: " + score);
                 }
             });
@@ -366,6 +390,7 @@
                 colorText(userName + "'s health is " + health, 15, 40, '20px Arial', 'Lime')
                 colorText(userName + "'s score is " + score, 15, 60, '20px Arial', 'Lime')
                 colorText('Run to the right! Arrow Keys to move! Dodge Those Enemies!', 15, 80, '20px Arial', 'Lime')
+                BG_MUSIC.play();
 
                 if (enemies.length > 0) {
                     enemies.forEach(function (enemy, i) {
@@ -374,7 +399,7 @@
                         enemy.hit();
                         enemies.push();
                     });
-                }
+                } // runs enemy.js functions onto each enemy created
 
             } else {
                 drawImg(BACKGROUND_3, 0, 0, BackgroundWidth, BackgroundHeight); //background
@@ -382,6 +407,10 @@
                 colorText(userName + ' you made it to stage ' + stageNumber, 50, 80, '20px Arial', 'red');
                 colorText('You lost with a score of ' + score, 50, 110, '20px Arial', 'red');
                 colorText('Click the reload page button to try and win!', 50, 140, '20px Arial', 'red');
+                BG_MUSIC.pause();
+                DAMAGE.pause();
+                WIN_MUSIC.pause();
+                GAME_OVER.play();
             }; // loose screen for when health variable drops below 1
             if (gameWin) {
                 drawImg(BACKGROUND_5, 0, 0, BackgroundWidth, BackgroundHeight); //background
@@ -389,6 +418,11 @@
                 colorText(userName + ' you made it through every stage!', 50, 80, '20px Arial', 'Lime');
                 colorText('You finished with a score of ' + score, 50, 110, '20px Arial', 'Lime');
                 colorText('Click the reload page button to play again!', 50, 140, '20px Arial', 'Lime');
+                BG_MUSIC.pause();
+                COIN_PICKUP.pause();
+                DAMAGE.pause();
+                GAME_OVER.pause();
+                WIN_MUSIC.play();
             }; // win screen for when player completes last stage
 
         }; // end func mainloop contains and runs all other functions in the code

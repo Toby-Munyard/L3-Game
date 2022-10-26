@@ -17,9 +17,9 @@ class Player {
     } //draws the player on the canvas
 
     move() {
-        var gravity = 20;
+        const GRAVITY = 20;
 
-        this.y += gravity;
+        this.y += GRAVITY;
 
 
         if (leftKeyPressed && this.x > 0) {
@@ -33,6 +33,7 @@ class Player {
         }
         if (upKeyPressed) {
             this.y -= this.ySpeed + 30;
+            //use of +30 means the player is able to move up when pressing up key despite gravity forcing them down because 30 is larger than 20 of gravity
         }
         if (downKeyPressed) {
             this.y += this.ySpeed;
